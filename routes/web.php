@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\Backend\Auth\LoginController;
+use App\Http\Controllers\Backend\Auth\RegisterController;
+use App\Http\Controllers\Backend\Auth\LogoutController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\Backend\Auth\ForgotPasswordController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\MediaController;
@@ -23,10 +23,6 @@ use App\Http\Controllers\SettingController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::get('/', [LoginController::class, 'show']);
 

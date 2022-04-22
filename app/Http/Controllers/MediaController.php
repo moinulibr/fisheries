@@ -13,7 +13,7 @@ class MediaController extends Controller
      */
     public function index()
     {
-        return view('admin.media.grid_view');
+        return view('backend.media.grid_view');
     }
 
     /**
@@ -23,7 +23,7 @@ class MediaController extends Controller
      */
     public function create()
     {
-        return view('admin.media.add_new');
+        return view('backend.media.add_new');
     }
 
     /**

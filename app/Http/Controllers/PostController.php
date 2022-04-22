@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('admin.posts.index');
+        return view('backend.posts.index');
     }
 
     /**
@@ -23,12 +23,12 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.add_new');
+        return view('backend.posts.add_new');
     }
 
     public function category()
     {
-        return view('admin.posts.categories');
+        return view('backend.posts.categories');
     }
 
     /**

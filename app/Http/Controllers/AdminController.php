@@ -11,25 +11,25 @@ class AdminController extends Controller
     {
         // $orders = Order::all();
         // return view('admin.order.index', compact('orders'));
-        return view('admin.dashboard');
+        return view('backend.dashboard');
     }
     public function newsTicker()
     {
-        return view('admin.news_ticker');
+        return view('backend.news_ticker');
     }
     
     public function imageMessage()
     {
-        return view('admin.image_messages');
+        return view('backend.image_messages');
     }
 
     public function importantLink()
     {
-        return view('admin.important_links');
+        return view('backend.important_links');
     }
 
     public function otherService()
     {
-        return view('admin.other_services');
+        return view('backend.other_services');
     }
 }

@@ -13,7 +13,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        return view('admin.settings.general');
+        return view('backend.settings.general');
     }
 
     /**
