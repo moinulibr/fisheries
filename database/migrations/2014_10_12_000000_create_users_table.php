@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->tinyInteger('verified')->default(0);
             $table->tinyInteger('status')->default(0);
-            $table->string('password');
+            $table->string('password')->nullable();
 
             $table->string('avatar')->nullable();
             $table->string('provider', 20)->nullable();
