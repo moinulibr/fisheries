@@ -15,6 +15,12 @@ class CreateScrollingNewsTickersTable extends Migration
     {
         Schema::create('scrolling_news_tickers', function (Blueprint $table) {
             $table->id();
+
+            $table->text('title')->nullable();
+            $table->tinyInteger('status')->default(0);
+            $table->integer('created_by')->nullable();
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

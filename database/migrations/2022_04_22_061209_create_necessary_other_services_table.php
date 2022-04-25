@@ -15,6 +15,14 @@ class CreateNecessaryOtherServicesTable extends Migration
     {
         Schema::create('necessary_other_services', function (Blueprint $table) {
             $table->id();
+
+            $table->text('title')->nullable();
+            $table->string('side_url',255)->nullable();
+            $table->string('photo',255)->nullable();
+            $table->tinyInteger('status')->default(0);
+            $table->integer('created_by')->nullable();
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

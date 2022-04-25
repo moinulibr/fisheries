@@ -15,6 +15,13 @@ class CreateImportantLinksTable extends Migration
     {
         Schema::create('important_links', function (Blueprint $table) {
             $table->id();
+
+            $table->text('link_name')->nullable();
+            $table->text('side_url')->nullable();
+            $table->tinyInteger('status')->default(0);
+            $table->integer('created_by')->nullable();
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }
