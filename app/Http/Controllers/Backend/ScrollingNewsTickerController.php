@@ -15,7 +15,9 @@ class ScrollingNewsTickerController extends Controller
      */
     public function index()
     {
-        //
+        $data['datas'] = ScrollingNewsTicker::latest()->get(); 
+        //return view('backend.news_ticker',$data);
+        return view('backend.scrolling-news-ticker.index',$data);
     }
 
     /**
@@ -36,7 +38,8 @@ class ScrollingNewsTickerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        auth()->user()->scrollingNewsTickerUser()->create($request->all());
+        return redirect()->route('admin.scrolling.news.ticker.index')->with('success','Scrolling News Ticker Added Successfully');
     }
 
     /**
@@ -58,7 +61,13 @@ class ScrollingNewsTickerController extends Controller
      */
     public function edit(ScrollingNewsTicker $scrollingNewsTicker)
     {
-        //
+        //$scrollingNewsTicker;
+        $data['scroll'] = $scrollingNewsTicker;
+        $view =  view('backend.scrolling-news-ticker.edit',$data)->render();
+        return response()->json([
+            'status' => true,
+            'html' => $view
+        ]);
     }
 
     /**
@@ -70,9 +79,30 @@ class ScrollingNewsTickerController extends Controller
      */
     public function update(Request $request, ScrollingNewsTicker $scrollingNewsTicker)
     {
-        //
+        $scrollingNewsTicker->title = $request->title;
+        $scrollingNewsTicker->status = $request->status;
+        $scrollingNewsTicker->save();
+        return redirect()->route('admin.scrolling.news.ticker.index')->with('success','Scrolling News Ticker Updated Successfully');
     }
 
+
+
+     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Backend\ScrollingNewsTicker  $scrollingNewsTicker
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(ScrollingNewsTicker $scrollingNewsTicker)
+    {
+        $data['scroll'] = $scrollingNewsTicker;
+        $view =  view('backend.scrolling-news-ticker.delete',$data)->render();
+        return response()->json([
+            'status' => true,
+            'html' => $view
+        ]);
+    }
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -81,6 +111,48 @@ class ScrollingNewsTickerController extends Controller
      */
     public function destroy(ScrollingNewsTicker $scrollingNewsTicker)
     {
-        //
+        $scrollingNewsTicker->deleted_at = date('Y/m/d h:i:s');
+        $scrollingNewsTicker->save();
+        return redirect()->route('admin.scrolling.news.ticker.index')->with('success','Scrolling News Ticker Deleted Successfully');
     }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Backend\ScrollingNewsTicker  $scrollingNewsTicker
+     * @return \Illuminate\Http\Response
+     */
+    public function bulkDestroy(Request $request)
+    {
+        ScrollingNewsTicker::whereIn('id',$request->ids)->update([
+            'deleted_at' => date('Y/m/d h:i:s')
+        ]);
+        return response()->json([
+            'status' => true,
+            'mess' => "Scrolling News Ticker Deleted Successfully"
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Backend\ScrollingNewsTicker  $scrollingNewsTicker
+     * @return \Illuminate\Http\Response
+     */
+    public function status(ScrollingNewsTicker $scrollingNewsTicker)
+    {
+        $data['scroll'] = $scrollingNewsTicker;
+        $view =  view('backend.scrolling-news-ticker.status',$data)->render();
+        return response()->json([
+            'status' => true,
+            'html' => $view
+        ]);
+    }
+
+    public function statusChanging(Request $request ,ScrollingNewsTicker $scrollingNewsTicker)
+    {
+        $scrollingNewsTicker->status = $request->status;
+        $scrollingNewsTicker->save();
+        return redirect()->route('admin.scrolling.news.ticker.index')->with('success','Scrolling News Ticker Status Changed Successfully');
+    }
+
 }

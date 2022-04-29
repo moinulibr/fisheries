@@ -2,9 +2,11 @@
 
 namespace App\Models\Backend;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class ImportantLink extends Model
 {
     use HasFactory;
@@ -17,5 +19,10 @@ class ImportantLink extends Model
     protected $fillable = [
         'link_name','side_url','status','created_by'
     ];
+    
+    public function createdBY()
+    {
+        return $this->belongsTo(User::class,'created_by','id');
+    }
 
 }

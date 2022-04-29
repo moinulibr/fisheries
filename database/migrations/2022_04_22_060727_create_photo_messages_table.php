@@ -16,7 +16,7 @@ class CreatePhotoMessagesTable extends Migration
         Schema::create('photo_messages', function (Blueprint $table) {
             $table->id();
 
-            $table->string('photo',255)->nullable();
+            $table->text('photo')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->integer('created_by')->nullable();
 

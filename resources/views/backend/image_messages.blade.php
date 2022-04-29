@@ -34,6 +34,7 @@
                         </select>
                         <a href="/admin/posts/add-new.php" class="btn btn-sm btn-outline-secondary">Add New Image</a>
                     </div>
+                    
                     <div class="col-md-7">
                         <div class="filter-button mt-2">
                             <select name="m" id="filter-by-date" class="btn btn-sm btn-outline-secondary">

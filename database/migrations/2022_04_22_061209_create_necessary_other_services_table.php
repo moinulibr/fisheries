@@ -18,7 +18,7 @@ class CreateNecessaryOtherServicesTable extends Migration
 
             $table->text('title')->nullable();
             $table->string('side_url',255)->nullable();
-            $table->string('photo',255)->nullable();
+            $table->text('photo')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->integer('created_by')->nullable();
 

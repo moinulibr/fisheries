@@ -30,26 +30,30 @@
                 
                 <div class="row">
                     <div class="col-md-5">
-                        <div class="postbody">
-                            <h5>Add News Ticker</h5>
-                            <div class="mb-3">
-                                <label for="exampleFormControlText" class="form-label">Ticker News</label>
-                                <textarea type="text" class="form-control" id="exampleFormControlText" placeholder=""></textarea>
-                                The nes is how it appears on your site.
+                        <form action="{{route('admin.scrolling.news.ticker.store')}}">
+                            @csrf
+                            <div class="postbody">
+                                <h5>Add News Ticker</h5>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlText" class="form-label">Ticker News</label>
+                                    <textarea name="title" type="text" class="form-control" id="exampleFormControlText" placeholder=""></textarea>
+                                    The nes is how it appears on your site.
+                                </div>
+                                <!-- <div class="mb-3">
+                                    <label for="exampleFormControlText" class="form-label">Site URL</label>
+                                    <input type="text" class="form-control" id="exampleFormControlText" placeholder="">
+                                    <p>The “Site URL” is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.</p>
+                                </div> -->
                             </div>
-                            <!-- <div class="mb-3">
-                                <label for="exampleFormControlText" class="form-label">Site URL</label>
-                                <input type="text" class="form-control" id="exampleFormControlText" placeholder="">
-                                <p>The “Site URL” is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.</p>
-                            </div> -->
-                        </div>
-                        <select name="m" id="filter-by-date" class="btn btn-sm btn-outline-secondary">
-                            <option selected="selected" value="0">News status</option>
-                            <option value="202203">Active</option>
-                            <option value="202104">inactive</option>
-                        </select>
-                        <a href="/admin/posts/add-new.php" class="btn btn-sm btn-outline-secondary">Add News Ticker</a>
+                            <select name="status" id="filter-by-date" class="btn btn-sm btn-outline-secondary">
+                                <option selected="selected" value="0">News status</option>
+                                <option value="1">Active</option>
+                                <option value="0">inactive</option>
+                            </select>
+                            <input type="submit" value="Add News Ticker" class="btn btn-sm btn-outline-secondary">
+                        </form>
                     </div>
+
                     <div class="col-md-7">
                         <div class="filter-button mt-2">
                             <select name="m" id="filter-by-date" class="btn btn-sm btn-outline-secondary">
@@ -62,7 +66,9 @@
                             <table id="example" class="table table-striped table-bordered" style="width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th style="width: 1%;"><input type="checkbox" onclick="toggle(this)"></th>
+                                        <th style="width: 1%;">
+                                            <input type="checkbox" onclick="toggle(this)">
+                                        </th>
                                         <th style="width: 51%;">Ticker News</th>
                                         <th style="width: 19%;">Status</th>
                                         <th style="width: 19%;">Author</th>
@@ -71,19 +77,37 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input type="checkbox" name="foo" value=""></td>
+                                        @foreach ($datas as $item)
                                         <td>
-                                            <a href="">      আসুন জাটকা ও সামুদ্রিক প্রজাতির মাছের ডিম, লার্ভী ও পোনা রক্ষায় বেহন্দি জাল, কারেন্ট জালসহ অন্যান্য ক্ষতিকর অবৈধ জাল দিয়ে মাছ ধরা থেকে বিরত থাকি- মৎস্য ও প্রাণিসম্পদ তথ্য দপ্তর, মৎস্য ও প্রাণিসম্পদ মন্ত্রণালয় ।                    </a>
+                                            <input type="checkbox" name="foo" value="">
                                         </td>
-                                        <td> Active 
+                                        <td>
+                                            <a href=""> 
+                                                {{$item->title}}    
+                                            </a>
+                                        </td>
+                                        <td> 
+                                            @if ($item->status == 1)
+                                                <span class="btn btn-sm btn-success"> Active</span>
+                                                @else
+                                                <span class="btn btn-sm btn-danger"> Inactive</span>
+                                            @endif
+ 
                                             <div class="group-link">
                                                 <a class="#" href="#"> Edit</a>  <span class="separetor"> | </span>
                                                 <a class="#" href="#"> Trash</a>
                                             </div>
                                         </td>
-                                        <td><a href="">Md. Samsul Alam</a> </td>
-                                        <td>2022/03/17 at 3:15 pm</td>
+                                        <td>
+                                            <a href="#">
+                                                {{$item->createdBY?$item->createdBY->name:""}} 
+                                            </a> 
+                                        </td>
+                                        <td>
+                                            {{ \Carbon\Carbon::parse($item->from_date)->format('Y/m/d h:i:s A')}}
+                                        </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>

@@ -44,9 +44,9 @@ trait FileUploadTrait
     {
         //its for full name, when we insert full name.. 
         // Get filename with extension
-        //$originalNameWithExtension = strtolower($this->requestFile->getClientOriginalName());
+        $originalNameWithExtension = strtolower($this->requestFile->getClientOriginalName());
         // Get file path
-        //$fileNameWithSpace = pathinfo($originalNameWithExtension, PATHINFO_FILENAME);
+        $fileNameWithSpace = pathinfo($originalNameWithExtension, PATHINFO_FILENAME);
         //its for full name, when we insert full name.. 
 
 
@@ -55,13 +55,13 @@ trait FileUploadTrait
         $this->extension = strtolower($this->requestFile->getClientOriginalExtension());
 
         //Create unique file name
-        $this->storableImageFileName =   $this->id.'.'.$this->extension;
-        //$this->storableImageFileName =   str_replace(' ', '-', $fileNameWithSpace).'-'.time()."-".rand(100000,999999).'.'.$this->extension;
+        //$this->storableImageFileName =   $this->id.'.'.$this->extension;
+        $this->storableImageFileName =   str_replace(' ', '-', $fileNameWithSpace).'-'.time()."-".rand(100000,999999).'.'.$this->extension;
         //$this->storableImageFileName =   $fileNameWithSpace.'-'.time()."-".rand(100000,999999).'.'.$this->extension;
 
         // Refer image to method resizeImage
         $this->resizeAndStoreImage();
-        return  $this->extension;
+        //return  $this->extension;
         return $this->storableImageFileName;
     }
     /*
@@ -122,9 +122,9 @@ trait FileUploadTrait
                 
                 //its for full name, when we insert full name.. 
                 // Get filename with extension
-                //$originalNameWithExtension = strtolower($this->requestFile->getClientOriginalName());
+                $originalNameWithExtension = strtolower($this->requestFile->getClientOriginalName());
                 // Get file path
-                //$filenameWithSpace = pathinfo($originalNameWithExtension, PATHINFO_FILENAME);
+                $filenameWithSpace = pathinfo($originalNameWithExtension, PATHINFO_FILENAME);
                 //its for full name, when we insert full name.. 
 
 
@@ -135,12 +135,12 @@ trait FileUploadTrait
 
                 // Create unique file name
                 $this->storableImageFileName     =   $this->id.'.'.$this->extension;
-                //$this->storableImageFileName =   str_replace(' ', '-', $filenameWithSpace).'-'.time()."-".rand(100000,999999).'.'.$this->extension;
+                $this->storableImageFileName =   str_replace(' ', '-', $filenameWithSpace).'-'.time()."-".rand(100000,999999).'.'.$this->extension;
                 //$this->storableImageFileName =   $filenameWithSpace.'-'.time()."-".rand(100000,999999).'.'.$this->extension;
 
                 // Refer image to method resizeImage
                 $this->resizeAndStoreImage();
-                return $this->extension;
+                //return $this->extension;
                 return $this->storableImageFileName;
             }
             return "";
@@ -196,17 +196,17 @@ trait FileUploadTrait
     */
         public function imageDelete()
         {
-            /* if(Storage::disk('public')->exists($this->destination.'/'.$this->dbImageField))
+            if(Storage::disk('public')->exists($this->destination.'/'.$this->dbImageField))
             {
                 Storage::disk('public')->delete($this->destination.'/'.$this->dbImageField);
             }
-            return true; */
+            return true;
             
-            if(Storage::disk('public')->exists($this->destination.'/'.$this->id.".".$this->dbImageField))
+            /* if(Storage::disk('public')->exists($this->destination.'/'.$this->id.".".$this->dbImageField))
             {
                 Storage::disk('public')->delete($this->destination.'/'.$this->id.".".$this->dbImageField);
             } 
-            return $this->id;
+            return $this->id; */
         }   
     /*
     |---------------------------------------------------------------------------------------------

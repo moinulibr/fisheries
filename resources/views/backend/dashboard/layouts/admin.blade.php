@@ -4,7 +4,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- loader->
         <link href="assets/css/pace.min.css" rel="stylesheet" />
         <script src="assets/js/pace.min.js"></script-->
@@ -134,5 +134,14 @@
         <!-- <script src="https://flid.org/rd/assets/js/index.js"></script> -->
         <!-- Main JS-->
         <script src="https://flid.org/rd/assets/js/main.js"></script>
+
+        <script>
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+        </script>
+        @stack('js')
     </body>
 </html>

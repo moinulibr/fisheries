@@ -21,7 +21,7 @@
             </a>
         </li>
         <li>
-            <a  href="{{ route('admin.news_ticker') }}">
+            <a  href="{{ route('admin.scrolling.news.ticker.index') }}">
                 <div class="parent-icon">
                     <i class="bi bi-newspaper"></i>
                 </div>

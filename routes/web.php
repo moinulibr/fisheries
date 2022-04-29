@@ -2,16 +2,19 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Backend\Auth\LoginController;
-use App\Http\Controllers\Backend\Auth\RegisterController;
-use App\Http\Controllers\Backend\Auth\LogoutController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Backend\Auth\ForgotPasswordController;
-use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\MediaController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\Backend\Auth\LoginController;
+use App\Http\Controllers\Backend\Auth\LogoutController;
+use App\Http\Controllers\Backend\Auth\RegisterController;
+use App\Http\Controllers\Backend\Auth\ForgotPasswordController;
+use App\Http\Controllers\Backend\PhotoMessageController;
+use App\Http\Controllers\Backend\ScrollingNewsTickerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +26,17 @@ use App\Http\Controllers\SettingController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+Route::get('clear', function() {
+    $exitCode = Artisan::call('config:clear');
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode = Artisan::call('config:cache');
+    $exitCode = Artisan::call('storage:link');
+    return 'DONE'; //Return anything
+});
+
+
 
 Route::get('/', [LoginController::class, 'show']);
 
@@ -87,4 +101,36 @@ Route::group(['middleware' => ['auth','verified']], function() {
     Route::get('/user/role', [UserController::class, 'role'])->name('admin.user.role');
 
     Route::get('/setting', [SettingController::class, 'index'])->name('admin.setting.index');
+
+    /*
+    |-----------------------------
+    | scrolling news tricker
+    |
+    */
+    
 });
+
+Route::group(['as'=>'admin.scrolling.news.ticker.','prefix' =>'admin/scrolling/news/ticker','middleware' => ['auth']], function() {  
+    Route::get('/',[ScrollingNewsTickerController::class,'index'])->name('index');
+    Route::post('/store',[ScrollingNewsTickerController::class,'store'])->name('store');
+    Route::get('/edit/{scrollingNewsTicker}',[ScrollingNewsTickerController::class,'edit'])->name('edit');
+    Route::post('/edit/{scrollingNewsTicker}',[ScrollingNewsTickerController::class,'update'])->name('update');
+    Route::get('/delete/{scrollingNewsTicker}',[ScrollingNewsTickerController::class,'delete'])->name('delete');
+    Route::post('/deleting/{scrollingNewsTicker}',[ScrollingNewsTickerController::class,'destroy'])->name('deleting');
+    Route::post('/bulk/deleting',[ScrollingNewsTickerController::class,'bulkDestroy'])->name('bulk.deleting');
+    Route::get('/status/change/{scrollingNewsTicker}',[ScrollingNewsTickerController::class,'status'])->name('status');
+    Route::post('/status/changing/{scrollingNewsTicker}',[ScrollingNewsTickerController::class,'statusChanging'])->name('status.changing');
+});
+
+Route::group(['as'=>'admin.photo.message.','prefix' =>'admin/image/mess','middleware' => ['auth']], function() {  
+    Route::get('/',[PhotoMessageController::class,'index'])->name('index');
+    Route::post('/store',[PhotoMessageController::class,'store'])->name('store');
+    Route::get('/edit/{photoMessage}',[PhotoMessageController::class,'edit'])->name('edit');
+    Route::post('/edit/{photoMessage}',[PhotoMessageController::class,'update'])->name('update');
+    Route::get('/delete/{photoMessage}',[PhotoMessageController::class,'delete'])->name('delete');
+    Route::post('/deleting/{photoMessage}',[PhotoMessageController::class,'destroy'])->name('deleting');
+    Route::post('/bulk/deleting',[PhotoMessageController::class,'bulkDestroy'])->name('bulk.deleting');
+    Route::get('/status/change/{photoMessage}',[PhotoMessageController::class,'status'])->name('status');
+    Route::post('/status/changing/{photoMessage}',[PhotoMessageController::class,'statusChanging'])->name('status.changing');
+});
+
