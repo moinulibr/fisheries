@@ -7,7 +7,7 @@
         <!--start breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
             <div class="breadcrumb-title pe-3">Important Links</div>
-            <div class="ms-auto">
+            {{-- <div class="ms-auto">
                 <div class="btn-group">
                     <button type="button" class="btn btn-outline-dark">Settings</button>
                     <button type="button" class="btn btn-outline-dark split-bg-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"><span class="visually-hidden">Toggle Dropdown</span></button>
@@ -19,7 +19,7 @@
                         <a class="dropdown-item" href="javascript:;">Separated link</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <!--end breadcrumb-->
 

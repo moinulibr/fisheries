@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Backend\ImportantLink;
+use App\Models\Backend\NecessaryOtherService;
+use App\Models\Backend\NecessaryServiceBox;
 use App\Models\Backend\PhotoMessage;
 use App\Models\Backend\ScrollingNewsTicker;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -50,6 +53,16 @@ class User extends Authenticatable
     public function photoMessagerUser()
     {
         return $this->hasMany(PhotoMessage::class,'created_by','id');
+    }
+
+    public function importantLinkUser()
+    {
+        return $this->hasMany(ImportantLink::class,'created_by','id');
+    }
+
+    public function necessaryOtherServiceUser()
+    {
+        return $this->hasMany(NecessaryOtherService::class,'created_by','id');
     }
 
 }

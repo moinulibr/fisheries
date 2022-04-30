@@ -15,7 +15,8 @@ class ImportantLinkController extends Controller
      */
     public function index()
     {
-        //
+        $data['datas'] = ImportantLink::latest()->get(); 
+        return view('backend.important-link.index',$data);
     }
 
     /**
@@ -36,7 +37,8 @@ class ImportantLinkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        auth()->user()->importantLinkUser()->create($request->all());
+        return redirect()->route('admin.important.link.index')->with('success','Important Link Added Successfully');
     }
 
     /**
@@ -58,7 +60,12 @@ class ImportantLinkController extends Controller
      */
     public function edit(ImportantLink $importantLink)
     {
-        //
+        $data['inportLink'] = $importantLink;
+        $view =  view('backend.important-link.edit',$data)->render();
+        return response()->json([
+            'status' => true,
+            'html' => $view
+        ]);
     }
 
     /**
@@ -70,9 +77,29 @@ class ImportantLinkController extends Controller
      */
     public function update(Request $request, ImportantLink $importantLink)
     {
-        //
+        $importantLink->link_name   = $request->link_name;
+        $importantLink->side_url    = $request->side_url;
+        $importantLink->save();
+        return redirect()->route('admin.important.link.index')->with('success','Important Link Updated Successfully');
     }
 
+    
+     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Backend\ImportantLink  $importantLink
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(ImportantLink $importantLink)
+    {
+        $data['inportLink'] = $importantLink;
+        $view =  view('backend.important-link.delete',$data)->render();
+        return response()->json([
+            'status' => true,
+            'html' => $view
+        ]);
+    }
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -81,6 +108,48 @@ class ImportantLinkController extends Controller
      */
     public function destroy(ImportantLink $importantLink)
     {
-        //
+        $importantLink->deleted_at = date('Y/m/d h:i:s');
+        $importantLink->save();
+        return redirect()->route('admin.important.link.index')->with('success','Important Link Deleted Successfully');
     }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Backend\ImportantLink  $importantLink
+     * @return \Illuminate\Http\Response
+     */
+    public function bulkDestroy(Request $request)
+    {
+        ImportantLink::whereIn('id',$request->ids)->update([
+            'deleted_at' => date('Y/m/d h:i:s')
+        ]);
+        return response()->json([
+            'status' => true,
+            'mess' => "Important Link Deleted Successfully"
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Backend\ImportantLink  $importantLink
+     * @return \Illuminate\Http\Response
+     */
+    public function status(ImportantLink $importantLink)
+    {
+        $data['inportLink'] = $importantLink;
+        $view =  view('backend.important-link.status',$data)->render();
+        return response()->json([
+            'status' => true,
+            'html' => $view
+        ]);
+    }
+
+    public function statusChanging(Request $request ,ImportantLink $importantLink)
+    {
+        $importantLink->status = $request->status;
+        $importantLink->save();
+        return redirect()->route('admin.important.link.index')->with('success','Important Link Status Changed Successfully');
+    }
+
 }

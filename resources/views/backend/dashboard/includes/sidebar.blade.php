@@ -49,7 +49,7 @@
         </li>
 
         <li>
-            <a  href="{{ route('admin.image_message') }}">
+            <a  href="{{ route('admin.photo.message.index') }}">
                 <div class="parent-icon">
                     <i class="bi bi-card-image"></i>
                 </div>
@@ -58,7 +58,7 @@
         </li>
 
         <li>
-            <a href="{{ route('admin.important_link') }}">
+            <a href="{{ route('admin.important.link.index') }}">
                 <div class="parent-icon">
                     <i class="bi bi-link-45deg"></i>
                 </div>
@@ -67,7 +67,7 @@
         </li>
 
         <li>
-            <a href="{{ route('admin.other_service') }}">
+            <a href="{{ route('admin.necessary.other.service.index') }}">
                 <div class="parent-icon">
                     <i class="bi bi-app-indicator"></i>
                 </div>

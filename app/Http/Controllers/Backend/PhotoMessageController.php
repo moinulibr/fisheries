@@ -47,7 +47,7 @@ class PhotoMessageController extends Controller
             $this->imageHeight  = 400;  //its nullable
             $this->requestFile  = $request->photo;  //its mandatory
             $this->id           = $data->id;
-            $data->photo = $this->storeImage();
+            $data->photo        = $this->storeImage();
             $data->save();
         }
         return redirect()->route('admin.photo.message.index')->with('success','Image Added Successfully');
@@ -91,7 +91,7 @@ class PhotoMessageController extends Controller
     {
         $photoMessage->status = $request->status;
         $photoMessage->save();
-        if(isset($photoMessage->photo))
+        if(isset($request->photo))
         {
             $this->destination  = 'photo-messages';  //its mandatory
             $this->imageWidth   = 400;  //its mandatory

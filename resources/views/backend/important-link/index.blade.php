@@ -6,7 +6,7 @@
     <div class="page-content">
         <!--start breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">   স্ক্রলিং নিউজ টিকার   </div>
+            <div class="breadcrumb-title pe-3">  Important Links  </div>
             <!-- <div class="ms-auto">
                 <div class="btn-group">
                     <button type="button" class="btn btn-outline-dark">Settings</button>
@@ -40,31 +40,33 @@
             <div class="card-body">
                 
                 <div class="row">
+                    {{--  
+                        <select required name="status" id="filter-by-date" class="btn btn-sm btn-outline-secondary">
+                            <option selected="selected" value="">News status</option>
+                            <option value="1">Active</option>
+                            <option value="0">inactive</option>
+                        </select> 
+                    --}}
                     <div class="col-md-5">
-                        <form action="{{route('admin.scrolling.news.ticker.store')}}" method="POST">
+                        <form action="{{route('admin.important.link.store')}}" method="POST">
                             @csrf
-                            <div class="postbody">
-                                <h5>Add News Ticker</h5>
-                                <div class="mb-3">
-                                    <label for="exampleFormControlText" class="form-label">Ticker News</label>
-                                    <textarea required name="title" type="text" class="form-control" id="exampleFormControlText" placeholder=""></textarea>
-                                    The nes is how it appears on your site.
-                                </div>
-                                <!-- <div class="mb-3">
-                                    <label for="exampleFormControlText" class="form-label">Site URL</label>
-                                    <input type="text" class="form-control" id="exampleFormControlText" placeholder="">
-                                    <p>The “Site URL” is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.</p>
-                                </div> -->
+                        <div class="postbody">
+                            <h5>Add New Link</h5>
+                            <div class="mb-3">
+                                <label for="exampleFormControlText" class="form-label">Link Name</label>
+                                <input required name="link_name" type="text" class="form-control" id="exampleFormControlText" placeholder="">
+                                The name is how it appears on your site.
                             </div>
-                            <select required name="status" id="filter-by-date" class="btn btn-sm btn-outline-secondary">
-                                <option selected="selected" value="">News status</option>
-                                <option value="1">Active</option>
-                                <option value="0">inactive</option>
-                            </select>
-                            <input type="submit" value="Add News Ticker" class="btn btn-sm btn-outline-secondary">
+        
+                            <div class="mb-3">
+                                <label for="exampleFormControlText" class="form-label">Site URL</label>
+                                <input required name="side_url" type="text" class="form-control" id="exampleFormControlText" placeholder="">
+                                <p>The “Site URL” is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.</p>
+                            </div>
+                        </div>
+                        <input type="submit" value="Add New Link" class="btn btn-sm btn-outline-secondary">
                         </form>
                     </div>
-
                     <div class="col-md-7">
                         <div class="filter-button mt-2">
                             <select name="bulk_action" id="filter-by-date" class="bulkActionButton btn btn-sm btn-outline-secondary">
@@ -80,8 +82,8 @@
                                         <th style="width: 1%;">
                                             <input class="check_all_class " type="checkbox" value="all" name="check_all" style="">
                                         </th>
-                                        <th style="width: 51%;">Ticker News</th>
-                                        <th style="width: 19%;">Status</th>
+                                        <th style="width: 51%;">Link Name</th>
+                                        <th style="width: 19%;">Site URL</th>
                                         <th style="width: 19%;">Author</th>
                                         <th style="width: 10%;">Date</th>
                                     </tr>
@@ -94,20 +96,30 @@
                                         </td>
                                         <td>
                                             <a href=""> 
-                                                {{$item->title}}    
+                                                {{$item->link_name}}    
                                             </a>
+                                            <div class="group-link">
+                                                <a class="editClass" data-href="{{route('admin.important.link.edit',$item->id)}}" href="#"> Edit</a>  <span class="separetor"> | </span>
+                                                <a class="deleteClass" data-href="{{route('admin.important.link.delete',$item->id)}}" href="#"> Trash</a> <span class="separetor"> | </span>
+                                                <a class="#" href="{{$item->side_url}}" target="_blank"> View</a>
+                                            </div>
                                         </td>
                                         <td> 
-                                            @if ($item->status == 1)
-                                            <a class="statusClass btn btn-sm btn-success" data-href="{{route('admin.scrolling.news.ticker.status',$item->id)}}" href="#" style="color:white !important;"> Active</a>
-                                                @else
-                                                <a class="statusClass btn btn-sm btn-danger" data-href="{{route('admin.scrolling.news.ticker.status',$item->id)}}" href="#" style="color:white !important;"> Inactive</a>
-                                            @endif
- 
-                                            <div class="group-link">
-                                                <a class="editClass" data-href="{{route('admin.scrolling.news.ticker.edit',$item->id)}}" href="#"> Edit</a>  <span class="separetor"> | </span>
-                                                <a class="deleteClass" data-href="{{route('admin.scrolling.news.ticker.delete',$item->id)}}" href="#"> Trash</a>
-                                            </div>
+                                            <a href="{{$item->side_url}}"  target="_blank"> 
+                                                {{$item->side_url}}    
+                                            </a>
+                                            {{--
+                                                @if ($item->status == 1)
+                                                <a class="statusClass btn btn-sm btn-success" data-href="{{route('admin.important.link.status',$item->id)}}" href="#" style="color:white !important;"> Active</a>
+                                                    @else
+                                                    <a class="statusClass btn btn-sm btn-danger" data-href="{{route('admin.important.link.status',$item->id)}}" href="#" style="color:white !important;"> Inactive</a>
+                                                @endif
+    
+                                                <div class="group-link">
+                                                    <a class="editClass" data-href="{{route('admin.important.link.edit',$item->id)}}" href="#"> Edit</a>  <span class="separetor"> | </span>
+                                                    <a class="deleteClass" data-href="{{route('admin.important.link.delete',$item->id)}}" href="#"> Trash</a>
+                                                </div> 
+                                            --}}
                                         </td>
                                         <td>
                                             <a href="#">
@@ -125,8 +137,8 @@
                                         <th style="width: 1%;">
                                             <input class="check_all_class " type="checkbox" value="all" name="check_all" style="">
                                         </th>
-                                        <th style="width: 51%;">Ticker News</th>
-                                        <th style="width: 19%;">Status</th>
+                                        <th style="width: 51%;">Link Name</th>
+                                        <th style="width: 19%;">Site URL</th>
                                         <th style="width: 19%;">Author</th>
                                         <th style="width: 10%;">Date</th>
                                     </tr>
@@ -281,10 +293,10 @@
                         ids.push(v);
                     }
                 });
-                var url =  "{{ route('admin.scrolling.news.ticker.bulk.deleting') }}";
+                var url =  "{{ route('admin.important.link.bulk.deleting') }}";
 
                 if(ids.length <= 0) return ;
-                let decirectUrl = "{{route('admin.scrolling.news.ticker.index')}}";
+                let decirectUrl = "{{route('admin.important.link.index')}}";
                 $.ajax({
                     url: url,
                     data: {ids: ids},

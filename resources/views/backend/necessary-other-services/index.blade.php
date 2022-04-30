@@ -6,20 +6,7 @@
     <div class="page-content">
         <!--start breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">   স্ক্রলিং নিউজ টিকার   </div>
-            <!-- <div class="ms-auto">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-outline-dark">Settings</button>
-                    <button type="button" class="btn btn-outline-dark split-bg-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"><span class="visually-hidden">Toggle Dropdown</span></button>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">
-                        <a class="dropdown-item" href="javascript:;">Action</a>
-                        <a class="dropdown-item" href="javascript:;">Another action</a>
-                        <a class="dropdown-item" href="javascript:;">Something else here</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="javascript:;">Separated link</a>
-                    </div>
-                </div>
-            </div> -->
+            <div class="breadcrumb-title pe-3"> Other services  </div>
         </div>
         <!--end breadcrumb-->
 
@@ -41,27 +28,31 @@
                 
                 <div class="row">
                     <div class="col-md-5">
-                        <form action="{{route('admin.scrolling.news.ticker.store')}}" method="POST">
+                        <form action="{{route('admin.necessary.other.service.store')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="postbody">
-                                <h5>Add News Ticker</h5>
+                                <h5>Add New Other service</h5>
                                 <div class="mb-3">
-                                    <label for="exampleFormControlText" class="form-label">Ticker News</label>
-                                    <textarea required name="title" type="text" class="form-control" id="exampleFormControlText" placeholder=""></textarea>
-                                    The nes is how it appears on your site.
+                                    <label for="exampleFormControlText" class="form-label">Name</label>
+                                    <input required name="title" type="text" class="form-control" id="exampleFormControlText" placeholder="">
+                                    The name is how it appears on your site.
                                 </div>
-                                <!-- <div class="mb-3">
+                
+                                <div class="mb-3">
                                     <label for="exampleFormControlText" class="form-label">Site URL</label>
-                                    <input type="text" class="form-control" id="exampleFormControlText" placeholder="">
+                                    <input required name="side_url" type="text" class="form-control" id="exampleFormControlText" placeholder="">
                                     <p>The “Site URL” is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.</p>
-                                </div> -->
+                                </div>
+                                
+                                <div class="postbox-body mb-3">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <img id="blah"  />
+                                        <input required name="photo" type='file'  onchange="readURL(this);" style="margin-top: 10px;" />
+                                        <p>Maximum upload file size: 500 MB.</p>
+                                    </div>
+                                </div>
                             </div>
-                            <select required name="status" id="filter-by-date" class="btn btn-sm btn-outline-secondary">
-                                <option selected="selected" value="">News status</option>
-                                <option value="1">Active</option>
-                                <option value="0">inactive</option>
-                            </select>
-                            <input type="submit" value="Add News Ticker" class="btn btn-sm btn-outline-secondary">
+                            <input type="submit" value="Add News Other Service" class="btn btn-sm btn-outline-secondary">
                         </form>
                     </div>
 
@@ -80,10 +71,11 @@
                                         <th style="width: 1%;">
                                             <input class="check_all_class " type="checkbox" value="all" name="check_all" style="">
                                         </th>
-                                        <th style="width: 51%;">Ticker News</th>
-                                        <th style="width: 19%;">Status</th>
-                                        <th style="width: 19%;">Author</th>
-                                        <th style="width: 10%;">Date</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Link</th>
+                                        <th scope="col">Author</th>
+                                        <th scope="col">Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -93,21 +85,42 @@
                                             <input class="check_single_class" type="checkbox"  name="checked_id[]" value="{{ $item->id }}" class="check_single_class" id="{{$item->id}}" style="box-shadow:none;">
                                         </td>
                                         <td>
-                                            <a href=""> 
-                                                {{$item->title}}    
+                                            <a href="#">
+                                                <span class="media-image">
+                                                    @if ($item->photo)
+                                                    <img width="60" height="50" src="{{ asset('storage/other-service/'.$item->photo) }}" class="attachment-60x60 size-60x60" alt="" loading="lazy">
+                                                    @else
+                                                    <img width="60" height="50" src="https://motshoprani.org/wp-content/uploads/2022/03/received_297835542392423.jpeg" class="attachment-60x60 size-60x60" alt="" loading="lazy">
+                                                    @endif
+                                                </span> 
                                             </a>
                                         </td>
-                                        <td> 
-                                            @if ($item->status == 1)
-                                            <a class="statusClass btn btn-sm btn-success" data-href="{{route('admin.scrolling.news.ticker.status',$item->id)}}" href="#" style="color:white !important;"> Active</a>
-                                                @else
-                                                <a class="statusClass btn btn-sm btn-danger" data-href="{{route('admin.scrolling.news.ticker.status',$item->id)}}" href="#" style="color:white !important;"> Inactive</a>
-                                            @endif
- 
+                                        <td>
+                                            <a href="{{$item->side_url}}" target="_blank">
+                                            {{$item->title}}
+                                            </a>
                                             <div class="group-link">
-                                                <a class="editClass" data-href="{{route('admin.scrolling.news.ticker.edit',$item->id)}}" href="#"> Edit</a>  <span class="separetor"> | </span>
-                                                <a class="deleteClass" data-href="{{route('admin.scrolling.news.ticker.delete',$item->id)}}" href="#"> Trash</a>
+                                                <a class="editClass" data-href="{{route('admin.necessary.other.service.edit',$item->id)}}" href="#"> Edit</a>  <span class="separetor"> | </span>
+                                                <a class="deleteClass" data-href="{{route('admin.necessary.other.service.delete',$item->id)}}" href="#"> Trash</a> <span class="separetor"> | </span>
+                                                <a class="#" href="{{$item->side_url}}" target="_blank"> View</a>
                                             </div>
+                                        </td>
+                                        <td> 
+                                            <a href="{{$item->side_url}}" target="_blank">
+                                            {{$item->side_url}}
+                                            </a>
+                                            {{--  
+                                                @if ($item->status == 1)
+                                                <a class="statusClass btn btn-sm btn-success" data-href="{{route('admin.necessary.other.service.status',$item->id)}}" href="#" style="color:white !important;"> Active</a>
+                                                    @else
+                                                    <a class="statusClass btn btn-sm btn-danger" data-href="{{route('admin.necessary.other.service.status',$item->id)}}" href="#" style="color:white !important;"> Inactive</a>
+                                                @endif
+    
+                                                <div class="group-link">
+                                                    <a class="editClass" data-href="{{route('admin.necessary.other.service.edit',$item->id)}}" href="#"> Edit</a>  <span class="separetor"> | </span>
+                                                    <a class="deleteClass" data-href="{{route('admin.necessary.other.service.delete',$item->id)}}" href="#"> Trash</a>
+                                                </div> 
+                                            --}}
                                         </td>
                                         <td>
                                             <a href="#">
@@ -125,16 +138,18 @@
                                         <th style="width: 1%;">
                                             <input class="check_all_class " type="checkbox" value="all" name="check_all" style="">
                                         </th>
-                                        <th style="width: 51%;">Ticker News</th>
-                                        <th style="width: 19%;">Status</th>
-                                        <th style="width: 19%;">Author</th>
-                                        <th style="width: 10%;">Date</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Link</th>
+                                        <th scope="col">Author</th>
+                                        <th scope="col">Date</th>
                                     </tr>
                                 </tfoot>
                             </table>
                             Deleting a category does not delete the posts in that category. Instead, posts that were only assigned to the deleted category are set to the default category Uncategorized. The default category cannot be deleted.
                         </div>
                     </div>
+
                 </div>
 
             </div>
@@ -281,10 +296,10 @@
                         ids.push(v);
                     }
                 });
-                var url =  "{{ route('admin.scrolling.news.ticker.bulk.deleting') }}";
+                var url =  "{{ route('admin.necessary.other.service.bulk.deleting') }}";
 
                 if(ids.length <= 0) return ;
-                let decirectUrl = "{{route('admin.scrolling.news.ticker.index')}}";
+                let decirectUrl = "{{route('admin.necessary.other.service.index')}}";
                 $.ajax({
                     url: url,
                     data: {ids: ids},
@@ -302,7 +317,7 @@
                             $('.message').text(response.mess);
                             setTimeout(function () {
                                 $(location).attr('href', decirectUrl);
-                            }, 1000);
+                            }, 2000);
                         }
                     },
                     complete:function(){

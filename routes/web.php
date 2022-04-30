@@ -13,6 +13,8 @@ use App\Http\Controllers\Backend\Auth\LoginController;
 use App\Http\Controllers\Backend\Auth\LogoutController;
 use App\Http\Controllers\Backend\Auth\RegisterController;
 use App\Http\Controllers\Backend\Auth\ForgotPasswordController;
+use App\Http\Controllers\Backend\ImportantLinkController;
+use App\Http\Controllers\Backend\NecessaryOtherServiceController;
 use App\Http\Controllers\Backend\PhotoMessageController;
 use App\Http\Controllers\Backend\ScrollingNewsTickerController;
 
@@ -132,5 +134,30 @@ Route::group(['as'=>'admin.photo.message.','prefix' =>'admin/image/mess','middle
     Route::post('/bulk/deleting',[PhotoMessageController::class,'bulkDestroy'])->name('bulk.deleting');
     Route::get('/status/change/{photoMessage}',[PhotoMessageController::class,'status'])->name('status');
     Route::post('/status/changing/{photoMessage}',[PhotoMessageController::class,'statusChanging'])->name('status.changing');
+});
+
+Route::group(['as'=>'admin.important.link.','prefix' =>'admin/important/link','middleware' => ['auth']], function() {  
+    Route::get('/',[ImportantLinkController::class,'index'])->name('index');
+    Route::post('/store',[ImportantLinkController::class,'store'])->name('store');
+    Route::get('/edit/{importantLink}',[ImportantLinkController::class,'edit'])->name('edit');
+    Route::post('/edit/{importantLink}',[ImportantLinkController::class,'update'])->name('update');
+    Route::get('/delete/{importantLink}',[ImportantLinkController::class,'delete'])->name('delete');
+    Route::post('/deleting/{importantLink}',[ImportantLinkController::class,'destroy'])->name('deleting');
+    Route::post('/bulk/deleting',[ImportantLinkController::class,'bulkDestroy'])->name('bulk.deleting');
+    Route::get('/status/change/{importantLink}',[ImportantLinkController::class,'status'])->name('status');
+    Route::post('/status/changing/{importantLink}',[ImportantLinkController::class,'statusChanging'])->name('status.changing');
+});
+
+
+Route::group(['as'=>'admin.necessary.other.service.','prefix' =>'admin/other/service','middleware' => ['auth']], function() {  
+    Route::get('/',[NecessaryOtherServiceController::class,'index'])->name('index');
+    Route::post('/store',[NecessaryOtherServiceController::class,'store'])->name('store');
+    Route::get('/edit/{necessaryOtherService}',[NecessaryOtherServiceController::class,'edit'])->name('edit');
+    Route::post('/edit/{necessaryOtherService}',[NecessaryOtherServiceController::class,'update'])->name('update');
+    Route::get('/delete/{necessaryOtherService}',[NecessaryOtherServiceController::class,'delete'])->name('delete');
+    Route::post('/deleting/{necessaryOtherService}',[NecessaryOtherServiceController::class,'destroy'])->name('deleting');
+    Route::post('/bulk/deleting',[NecessaryOtherServiceController::class,'bulkDestroy'])->name('bulk.deleting');
+    Route::get('/status/change/{necessaryOtherService}',[NecessaryOtherServiceController::class,'status'])->name('status');
+    Route::post('/status/changing/{necessaryOtherService}',[NecessaryOtherServiceController::class,'statusChanging'])->name('status.changing');
 });
 

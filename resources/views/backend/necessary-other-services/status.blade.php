@@ -1,7 +1,7 @@
 <!-- Modal -->
 {{-- <div class="modalEditShow modal fade modal-dialog modal-dialog-centered modal-dialog-photoMessable" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> --}}
     
-    <form action="{{route('admin.photo.message.status.changing',$photoMess->id)}}" method="POST">
+    <form action="{{route('admin.necessary.other.service.status.changing',$photoMess->id)}}" method="POST">
         @csrf
         <div class="modal-dialog">
             <div class="modal-content modal-sm">
@@ -18,7 +18,6 @@
                         <img width="120" height="80" src="https://motshoprani.org/wp-content/uploads/2022/03/received_297835542392423.jpeg" class="attachment-60x60 size-60x60" alt="" loading="lazy">
                         @endif
                     </div>
-                    <hr>
                     <select name="status" id="filter-by-date" class="btn btn-sm btn-outline-secondary" required>
                         <option {{$photoMess->status == "" ?'selected':''}} selected="selected" value="">News status</option>
                         <option {{$photoMess->status == 1 ?'selected':''}} value="1">Active</option>
