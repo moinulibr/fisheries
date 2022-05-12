@@ -12,24 +12,24 @@
         <link rel="shortcut icon" href="https://flid.org/img/favicon.ico" type="image/x-icon" />
  
         <!--plugins-->
-        <link href="https://flid.org/rd/assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
-        <link href="https://flid.org/rd/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
-        <link href="https://flid.org/rd/assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
-        <link href="https://flid.org/rd/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+        <link href="{{asset('mastering-assets')}}/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+        <link href="{{asset('mastering-assets')}}/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+        <link href="{{asset('mastering-assets')}}/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+        <link href="{{asset('mastering-assets')}}/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 
         <!-- CSS Files -->
-        <link href="https://flid.org/rd/assets/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="https://flid.org/rd/assets/css/bootstrap-extended.css" rel="stylesheet" />
-        <link href="https://flid.org/rd/assets/css/style.css" rel="stylesheet" />
-        <link href="https://flid.org/rd/assets/css/icons.css" rel="stylesheet" />
+        <link href="{{asset('mastering-assets')}}/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="{{asset('mastering-assets')}}/css/bootstrap-extended.css" rel="stylesheet" />
+        <link href="{{asset('mastering-assets')}}/css/style.css" rel="stylesheet" />
+        <link href="{{asset('mastering-assets')}}/css/icons.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" />
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
 
         <!-- CSS RichtextEditor -->
-        <link href="https://flid.org/rd/assets/plugins/richtexteditor/rte_theme_default.css" rel="stylesheet"  />
+        <link href="{{asset('mastering-assets')}}/plugins/richtexteditor/rte_theme_default.css" rel="stylesheet"  />
 
         <!--Theme Styles-->
-        <link href="https://flid.org/rd/assets/css/semi-dark.css" rel="stylesheet" />
+        <link href="{{asset('mastering-assets')}}/css/semi-dark.css" rel="stylesheet" />
 
         <title>FLID - মৎস্য ও প্রাণিসম্পদ তথ্য ভাণ্ডার </title>
     </head>
@@ -54,18 +54,18 @@
         <!--end wrapper-->
 
         <!-- JS Files-->
-        <script src="https://flid.org/rd/assets/js/jquery.min.js"></script>
-        <script src="https://flid.org/rd/assets/plugins/simplebar/js/simplebar.min.js"></script>
+        <script src="{{asset('mastering-assets')}}/js/jquery.min.js"></script>
+        <script src="{{asset('mastering-assets')}}/plugins/simplebar/js/simplebar.min.js"></script>
         <!-- sidbarmenuscrool-->
-        <script src="https://flid.org/rd/assets/plugins/metismenu/js/metisMenu.min.js"></script>
+        <script src="{{asset('mastering-assets')}}/plugins/metismenu/js/metisMenu.min.js"></script>
         <!-- sidbarmenuscrool-->
-        <script src="https://flid.org/rd/assets/js/bootstrap.bundle.min.js"></script>
+        <script src="{{asset('mastering-assets')}}/js/bootstrap.bundle.min.js"></script>
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <!--plugins-->
-        <script src="https://flid.org/rd/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
-        <script src="https://flid.org/rd/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
-        <script src="https://flid.org/rd/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
-        <script src="https://flid.org/rd/assets/js/table-datatable.js"></script>
+        <script src="{{asset('mastering-assets')}}/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+        <script src="{{asset('mastering-assets')}}/plugins/datatable/js/jquery.dataTables.min.js"></script>
+        <script src="{{asset('mastering-assets')}}/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+        <script src="{{asset('mastering-assets')}}/js/table-datatable.js"></script>
         <script>
             $(document).ready(function() {
                 var table = $('#example').DataTable( {
@@ -95,7 +95,7 @@
         </script>
 
         <!-- RichtextEditor -->
-        <script src="https://flid.org/rd/assets/plugins/richtexteditor/rte.js"></script>
+        <script src="{{asset('mastering-assets')}}/plugins/richtexteditor/rte.js"></script>
         <script>
 			var editor1 = new RichTextEditor("#div_editor1");
 			
@@ -131,9 +131,9 @@
         </script>
         
         <!-- Notificationmenuscrool-->
-        <!-- <script src="https://flid.org/rd/assets/js/index.js"></script> -->
+        <!-- <script src="{{asset('mastering-assets')}}/js/index.js"></script> -->
         <!-- Main JS-->
-        <script src="https://flid.org/rd/assets/js/main.js"></script>
+        <script src="{{asset('mastering-assets')}}/js/main.js"></script>
 
         <script>
                 $.ajaxSetup({

@@ -112,7 +112,7 @@
                                                         </div>
                                                     </td>
                                                     <td>uncategorized </td>
-                                                    <td><a href="">Main</a> </td>
+                                                    <td>Main </td>
                                                     <td><a href="">3</a></td>
                                                 </tr>
                                                 <tr>
@@ -126,21 +126,35 @@
                                                         </div>
                                                     </td>
                                                     <td>fisheries-and-livestock </td>
-                                                    <td><a href="">Main</a> </td>
+                                                    <td>Main</td>
                                                     <td><a href="">3</a></td>
                                                 </tr>
                                                 <tr>
                                                     <td><input type="checkbox" name="foo" value=""></td>
                                                     <td>
-                                                        <a href="">মৎস্য</a>
+                                                        <a href=""><span>— </span>মৎস্য</a>
                                                         <div class="group-link">
                                                             <a class="#" href="#"> Edit</a>  <span class="separetor"> | </span>
                                                             <a class="#" href="#"> Trash</a> <span class="separetor"> | </span>
                                                             <a class="#" href="#"> View</a>
                                                         </div>
                                                     </td>
-                                                    <td>fisheries-and-livestock </td>
-                                                    <td><a href="">sub</a> </td>
+                                                    <td>fisheries </td>
+                                                    <td>sub </td>
+                                                    <td><a href="">2</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="checkbox" name="foo" value=""></td>
+                                                    <td>
+                                                        <a href=""><span>— </span><span>— </span>মৎস্য সাব</a>
+                                                        <div class="group-link">
+                                                            <a class="#" href="#"> Edit</a>  <span class="separetor"> | </span>
+                                                            <a class="#" href="#"> Trash</a> <span class="separetor"> | </span>
+                                                            <a class="#" href="#"> View</a>
+                                                        </div>
+                                                    </td>
+                                                    <td>fisheries </td>
+                                                    <td>sub - sub </td>
                                                     <td><a href="">2</a></td>
                                                 </tr>
                                             </tbody>

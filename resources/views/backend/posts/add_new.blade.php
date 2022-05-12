@@ -53,35 +53,56 @@
                             
                                     <div class="postbox mb-3">
                                         <div class="postbox-header">
-                                            <h2>Main Categories</h2>
+                                            <h2>All Categories</h2>
                                         </div>
-                                        <div class="postbox-body" style="max-height: 150px; overflow: hidden; overflow-x: hidden; overflow-y: auto;">
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Default checkbox</label></div>
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Default checkbox</label></div>
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Default checkbox</label></div>
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Default checkbox</label></div>
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Default checkbox</label></div>
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Default checkbox</label></div>
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Default checkbox</label></div>
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Default checkbox</label></div>
+                                        <div class="postbox-body" style="max-height: 250px; overflow: hidden; overflow-x: hidden; overflow-y: auto;">
+                                            <div class="main-cat">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">Main Category</label>
+                                                </div>
+                                            </div>
+                                            <div class="sub-cat">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">Sub Category</label>
+                                                </div>
+                                            </div>
+                                            <div class="main-cat">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">Main Category</label>
+                                                </div>
+                                            </div>
+                                            <div class="sub-cat">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">Sub Category</label>
+                                                </div>
+                                            </div>
+                                            <div class="sub-cat">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">Sub Category</label>
+                                                </div>
+                                            </div>
+                                            <div class="main-cat">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">Main Category</label>
+                                                </div>
+                                            </div>
+                                            <div class="main-cat">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">Main Category</label>
+                                                </div>
+                                            </div>
                                         </div>
+
                                     </div>
                             
-                                    <div class="postbox mb-3">
-                                        <div class="postbox-header">
-                                            <h2>Sub Categories</h2>
-                                        </div>
-                                        <div class="postbox-body" style="max-height: 150px; overflow: hidden; overflow-x: hidden; overflow-y: auto;">
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Default checkbox</label></div>
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Default checkbox</label></div>
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Default checkbox</label></div>
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Default checkbox</label></div>
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Default checkbox</label></div>
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Default checkbox</label></div>
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Default checkbox</label></div>
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Default checkbox</label></div>
-                                        </div>
-                                    </div>
+                                    
                             
                                     <div class="postbox mb-5">
                                         <div class="postbox-header">
