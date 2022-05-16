@@ -11,7 +11,7 @@
 						<div class="breadcrumb-title pe-3">Upload New Media</div>
 					
 						<div class="ms-auto">
-							<div class="btn-group">
+							{{-- <div class="btn-group">
 								<button type="button" class="btn btn-outline-dark">Settings</button>
 								<button type="button" class="btn btn-outline-dark split-bg-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"><span class="visually-hidden">Toggle Dropdown</span></button>
 								<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">
@@ -21,26 +21,30 @@
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="javascript:;">Separated link</a>
 								</div>
-							</div>
+							</div> --}}
 						</div>
 					</div>
 					<!--end breadcrumb-->
 
 					<hr />
-
+					@include('backend.dashboard.includes.message')
+					
 					<div class="card">
 						<div class="card-body">
-						    
-						    <div class="postbox mb-5">
-                                <div class="postbox-body">
-                                    <div class="fileinput fileinput-new" data-provides="fileinput">
-                                        <p>Drop files to upload or</p>
-										<img id="blah"  />
-										<input type='file' onchange="readURL(this);" style="margin-top: 10px;" />
-                                        <p>Maximum upload file size: 500 MB.</p>
-                                    </div>
-                                </div>
-                            </div>
+							<form action="{{route('admin.media.store')}}" method="POST" enctype="multipart/form-data">
+								@csrf
+								<div class="postbox mb-5">
+									<div class="postbox-body">
+										<div class="fileinput fileinput-new" data-provides="fileinput">
+											<p>files Upload</p>
+											<img id="blah"  />
+											<input name="photo[]" type='file' onchange="readURL(this);" style="margin-top: 10px;" multiple />
+											<p>Maximum upload file size: 500 MB.</p>
+											<input type="submit" value="Upload" class="btn btn-primary" />
+										</div>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
 					<!--end card-->

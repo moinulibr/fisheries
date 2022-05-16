@@ -8,7 +8,7 @@
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
             <div class="breadcrumb-title pe-3">Other services</div>
             <div class="ms-auto">
-                <div class="btn-group">
+                {{-- <div class="btn-group">
                     <button type="button" class="btn btn-outline-dark">Settings</button>
                     <button type="button" class="btn btn-outline-dark split-bg-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"><span class="visually-hidden">Toggle Dropdown</span></button>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">
@@ -18,7 +18,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="javascript:;">Separated link</a>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
         <!--end breadcrumb-->

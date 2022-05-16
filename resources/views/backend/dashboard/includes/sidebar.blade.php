@@ -43,7 +43,7 @@
                     <a href="{{ route('admin.post.create') }}"> <i class="bi bi-arrow-right"></i> Add New </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.post.category') }}"> <i class="bi bi-arrow-right"></i> Categories </a>
+                    <a href="{{ route('admin.category.index') }}"> <i class="bi bi-arrow-right"></i> Categories </a>
                 </li>
             </ul>
         </li>
@@ -125,10 +125,10 @@
                     <a href="{{ route('admin.user.create') }}"> <i class="bi bi-arrow-right"></i> Add New </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.user.profile') }}"> <i class="bi bi-arrow-right"></i> Profile </a>
+                    <a href="{{ route('admin.user.profile.index') }}"> <i class="bi bi-arrow-right"></i> Profile </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.user.role') }}"> <i class="bi bi-arrow-right"></i> User Role </a>
+                    <a href="{{ route('admin.user.role.index') }}"> <i class="bi bi-arrow-right"></i> User Role </a>
                 </li>
             </ul>
         </li>

@@ -22,17 +22,18 @@
 									<thead>
 										<tr>
 											<th scope="col">Roles</th>
-											<th scope="col">Action</th>
+											{{-- <th scope="col">Action</th> --}}
 										</tr>
 									</thead>
 									<tbody>
-										<tr class="form-field form-required mb-3">
-											<th scope="row">
-												<label for="user_login">Administrator</label>
-											</th>
-											<td></td>
-										</tr>
-										<tr class="form-field form-required mb-3">
+										@foreach ($userRoles as $item)
+											<tr class="form-field form-required mb-3">
+												<th scope="row">
+													<label for="user_login">{{$item->name}}</label>
+												</th>
+											</tr>
+										@endforeach
+										{{-- <tr class="form-field form-required mb-3">
 											<th scope="row">
 												<label for="user_login">Editor</label>
 											</th>
@@ -58,7 +59,7 @@
 												<a href="#" class="btn btn-sm btn-outline-success px-5"><i class="bi bi-pencil-square"></i> Edit</a> &nbsp;
                                 				<button data-href="#" class="btn btn-sm btn-outline-danger px-5"><i class="bi bi-trash"></i> Delete</button>
 											</td>
-										</tr>
+										</tr> --}}
 									</tbody>
 
 								</table>

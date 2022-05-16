@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Backend\Category;
 use App\Models\Backend\ImportantLink;
+use App\Models\Backend\Media;
 use App\Models\Backend\NecessaryOtherService;
-use App\Models\Backend\NecessaryServiceBox;
+use App\Models\Backend\Page;
 use App\Models\Backend\PhotoMessage;
+use App\Models\Backend\Post;
 use App\Models\Backend\ScrollingNewsTicker;
+use App\Models\Backend\Setting;
+use App\Models\Backend\UserRole;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -24,7 +29,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password',
         'avatar', 'provider_id', 'provider',
-        'access_token'
+        'access_token','phone',
+        'verified','send_user_notification','status','user_role_id','photo',
     ];
 
     /**
@@ -65,4 +71,34 @@ class User extends Authenticatable
         return $this->hasMany(NecessaryOtherService::class,'created_by','id');
     }
 
+
+    public function settingUser()
+    {
+        return $this->hasMany(Setting::class,'created_by','id');
+    }
+    public function CategoryUser()
+    {
+        return $this->hasMany(Category::class,'created_by','id');
+    }
+    public function postUser()
+    {
+        return $this->hasMany(Post::class,'created_by','id');
+    }
+    public function pageUser()
+    {
+        return $this->hasMany(Page::class,'created_by','id');
+    }
+    public function mediaUser()
+    {
+        return $this->hasMany(Media::class,'created_by','id');
+    }
+    public function userRoleUser()
+    {
+        return $this->hasMany(UserRole::class,'created_by','id');
+    }
+
+    public function userRoles()
+    {
+        return $this->belongsTo(UserRole::class,'user_role_id','id');
+    }
 }

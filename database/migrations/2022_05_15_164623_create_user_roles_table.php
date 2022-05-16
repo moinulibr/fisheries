@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNecessaryServiceBoxesTable extends Migration
+class CreateUserRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class CreateNecessaryServiceBoxesTable extends Migration
      */
     public function up()
     {
-        Schema::create('necessary_service_boxes', function (Blueprint $table) {
+        Schema::create('user_roles', function (Blueprint $table) {
             $table->id();
+            $table->string('name',100)->nullable();
+            $table->text('description')->nullable();
+            $table->tinyInteger('status')->default(0);
+            $table->integer('created_by')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ class CreateNecessaryServiceBoxesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('necessary_service_boxes');
+        Schema::dropIfExists('user_roles');
     }
 }

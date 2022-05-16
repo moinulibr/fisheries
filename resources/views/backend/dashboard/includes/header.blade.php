@@ -22,7 +22,7 @@
                     </a>
                 </li>
                 
-                <li class="nav-item dropdown dropdown-large">
+                {{-- <li class="nav-item dropdown dropdown-large">
                     <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
                         <div class="position-relative">
                             <span class="notify-badge">8</span>
@@ -142,21 +142,33 @@
                             <div class="text-center msg-footer">View All Notifications</div>
                         </a>
                     </div>
-                </li>
+                </li> --}}
                 <li class="nav-item dropdown dropdown-user-setting">
                     <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
                         <div class="user-setting">
+                             @if (Auth::guard('web')->user()->photo)
+                            <img  src="{{ asset('storage/user/'.Auth::guard('web')->user()->photo) }}" class="user-img" alt="">
+                            @else
                             <img src="https://via.placeholder.com/110X110/212529/fff" class="user-img" alt="" />
+                            @endif
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
                             <a class="dropdown-item" href="javascript:;">
                                 <div class="d-flex flex-row align-items-center gap-2">
-                                    <img src="https://via.placeholder.com/110X110/212529/fff" alt="" class="rounded-circle" width="54" height="54" />
+                                     @if (Auth::guard('web')->user()->photo)
+                                        <img class="rounded-circle" width="54" height="54" src="{{ asset('storage/user/'.Auth::guard('web')->user()->photo) }}" alt="" >
+                                        @else
+                                        <img src="https://via.placeholder.com/110X110/212529/fff" alt="" class="rounded-circle" width="54" height="54" />
+                                        @endif
                                     <div class="">
-                                        <h6 class="mb-0 dropdown-user-name">Jhon Deo</h6>
-                                        <small class="mb-0 dropdown-user-designation text-secondary">UI Developer</small>
+                                        <h6 class="mb-0 dropdown-user-name">
+                                            {{Auth::guard('web')->user()->name}}
+                                        </h6>
+                                        <small class="mb-0 dropdown-user-designation text-secondary">
+                                            {{Auth::guard('web')->user()->userRoles?Auth::guard('web')->user()->userRoles->name:NULL}}
+                                        </small>
                                     </div>
                                 </div>
                             </a>
@@ -165,7 +177,7 @@
                             <hr class="dropdown-divider" />
                         </li>
                         <li>
-                            <a class="dropdown-item" href="javascript:;">
+                            <a class="dropdown-item" href="{{ route('admin.user.index') }}">
                                 <div class="d-flex align-items-center">
                                     <div class="">
                                         <ion-icon name="person-outline"></ion-icon>
@@ -175,7 +187,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="javascript:;">
+                            <a class="dropdown-item" href="{{ route('admin.setting.index') }}">
                                 <div class="d-flex align-items-center">
                                     <div class="">
                                         <ion-icon name="settings-outline"></ion-icon>

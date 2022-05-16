@@ -11,7 +11,7 @@ class AdminController extends Controller
     {
         // $orders = Order::all();
         // return view('admin.order.index', compact('orders'));
-        return view('backend.dashboard');
+        return view('backend.dashboard.dashboard');
     }
     public function newsTicker()
     {
