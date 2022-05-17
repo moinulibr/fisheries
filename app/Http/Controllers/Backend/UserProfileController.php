@@ -84,7 +84,10 @@ class UserProfileController extends Controller
         }
         $user->name     = $request->name;
         $user->phone    = $request->phone;
-        $user->password = Hash::make($request->password);
+        if($request->password && $request->password_confirmation)
+        {
+            $user->password = Hash::make($request->password);
+        }
         $user->save();
         if(isset($request->photo))
         {

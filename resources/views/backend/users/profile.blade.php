@@ -50,7 +50,7 @@
 											<tr class="form-field">
 												<th scope="row"><label for="name">Name </label></th>
 												<td>
-													<input name="name" type="text" id="name" class="form-control" value="{{$user->name}}" />
+													<input name="name" type="text" class="form-control" value="{{$user->name}}" />
 												</td>
 											</tr>
 											<tr class="form-field">
@@ -58,11 +58,11 @@
 												<td><input name="phone" type="phone" id="phone" class="form-control" value="{{$user->phone}}" /></td>
 											</tr>
 											<tr class="form-field">
-												<th scope="row"><label for="password">Password (required)</label></th>
+												<th scope="row"><label for="password">Password (required:if change)</label></th>
 												<td><input name="password" type="password"  class="form-control" /></td>
 											</tr>
 											<tr class="form-field">
-												<th scope="row"><label for="password_confirmation">Re-type Password (required)</label></th>
+												<th scope="row"><label for="password_confirmation">Re-type Password (required:if change password)</label></th>
 												<td><input name="password_confirmation" type="password"  class="form-control" value="" /></td>
 											</tr>
 											<tr class="form-field">
