@@ -31,31 +31,53 @@
 					<hr>
 
 					@include('backend.dashboard.includes.message')
-
+                    <div class="successMessage" style="display: none;">
+                        <div class="alert alert-success alert-success-custom" role="alert">
+                            <i class="fa fa-check"></i>
+                            <span class="message"></span>
+                        </div>  
+                    </div>
 
 					<div class="card">
 						<div class="card-body">
 
 							<ul class="nav nav-tabs" id="myTab" role="tablist">
 								<li class="nav-item" role="presentation">
-									<button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="true">All <span>(3)</span></button>
+									<a class="nav-link {{$utyUrl == NULL ? 'active' : ''}}" href="{{route('admin.user.index','')}}">
+										All <span>({{$userCountables->count()}})</span>
+									</a>
 								</li>
 								<li class="nav-item" role="presentation">
-									<button class="nav-link" id="administrator-tab" data-bs-toggle="tab" data-bs-target="#administrator  " type="button" role="tab" aria-controls="administrator  " aria-selected="false">Administrator  <span>(1)</span></button>
+									<a class="nav-link {{$utyUrl == 'administrator' ? 'active' : ''}}" href="{{route('admin.user.index','administrator')}}">
+										Administrator
+										<span>({{$userCountables->where('user_role_id',1)->count()}})</span>
+									</a>
 								</li>
 								<li class="nav-item" role="presentation">
-									<button class="nav-link" id="editor-tab" data-bs-toggle="tab" data-bs-target="#editor" type="button" role="tab" aria-controls="editor" aria-selected="false">Editor  <span>(1)</span></button>
+									<a class="nav-link {{$utyUrl == 'author' ? 'active' : ''}}" href="{{route('admin.user.index','author')}}">
+										Author  
+										<span>({{$userCountables->where('user_role_id',2)->count()}})</span>
+									</a>
 								</li>
 								<li class="nav-item" role="presentation">
-									<button class="nav-link" id="author-tab" data-bs-toggle="tab" data-bs-target="#author" type="button" role="tab" aria-controls="author" aria-selected="false">Author  <span>(1)</span></button>
+									<a class="nav-link {{$utyUrl == 'contributor' ? 'active' : ''}}" href="{{route('admin.user.index','contributor')}}">
+										Contributor  
+										<span>({{$userCountables->where('user_role_id',3)->count()}})</span>
+									</a>
+								</li>
+								<li class="nav-item" role="presentation">
+									<a class="nav-link {{$utyUrl == 'editor' ? 'active' : ''}}" href="{{route('admin.user.index','editor')}}">
+										Editor  
+										<span>({{$userCountables->where('user_role_id',4)->count()}})</span>
+									</a>
 								</li>
 							</ul>
 							<div class="filter-button mt-2">
-								<select name="m" id="filter-by-date" class="btn btn-sm btn-outline-secondary">
+								<select name="bulk_action" id="filter-by-date" class="bulkActionButton btn btn-sm btn-outline-secondary">
 									<option selected="selected" value="0">Bulk actions</option>
-									<option value="delete">Delete</option>
+									<option value="1">Delete</option>
 								</select>
-								<button type="button" class="btn btn-sm btn-outline-secondary">Apply</button>
+								<button type="button" class="deletedAllButton btn btn-sm btn-outline-secondary">Apply</button>
 							</div>
 
 							<div class="tab-content" id="myTabContent">
@@ -65,53 +87,62 @@
 										<table id="post-all" class="table table-striped table-bordered" style="width: 100%;">
 											<thead>
 												<tr>
-													<th style="width: 1%;"><input type="checkbox" onclick="toggle(this)"></th>
+													<th style="width: 1%;"><input class="check_all_class " type="checkbox" value="all" name="check_all" style=""></th>
 													<th scope="col">Image</th>
-													<th scope="col">Username</th>
 													<th scope="col">Name</th>
 													<th scope="col">Email</th>
+													<th scope="col">Phone</th>
 													<th scope="col">Role</th>
 													<th scope="col">Posts</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td><input type="checkbox" name="foo" value=""></td>
-													<td>
-														<span class="media-image">
-															<img width="60" height="50" src="https://motshoprani.org/wp-content/uploads/2022/03/received_297835542392423.jpeg" class="attachment-60x60 size-60x60" alt="" loading="lazy">
-														</span> 
-													</td>
-													<td>
-														<a href="#"> <span class="username"> admin </span> </a>
-														<div class="group-link">
-															<a class="#" href="#"> Edit</a>  <span class="separetor"> | </span>
-															<a class="#" href="#"> Trash</a> <span class="separetor"> | </span>
-															<a class="#" href="#"> View</a>
-														</div>
-													</td>
-													<td>
-														<a href="https://motshoprani.org/">  Md. Samsul Alam  </a>
-														<div class="group-link">
-															<a class="#" href="#"> Edit</a>  <span class="separetor"> | </span>
-															<a class="#" href="#"> Trash</a> <span class="separetor"> | </span>
-															<a class="#" href="#"> View</a>
-														</div>
-													</td>
-													<td> <a href="alam4162@gmail.com">  alam4162@gmail.com </a> </td>
-													<td>Administrator </td>
-													<td>
-														<a href="">5</a>
-													</td>
-												</tr>
+												@foreach ($users as $item)
+													<tr>
+														<td>
+                                                            @if ($item->user_role_id != 1)
+                                                            <input class="check_single_class" type="checkbox"  name="checked_id[]" value="{{ $item->id }}" id="{{$item->id}}" style="box-shadow:none;">
+                                                            @else
+                                                            <input  type="checkbox" disabled style="box-shadow:none;">
+                                                            @endif
+                                                        </td>
+														<td>
+															<span class="media-image">
+																@if ($item->photo)
+																<img width="60" height="50" src="{{ asset('storage/user/'.$item->photo) }}" class="attachment-60x60 size-60x60" alt="" loading="lazy">
+																@else
+																<img width="60" height="50" src="" class="attachment-60x60 size-60x60" alt="" loading="lazy">
+																@endif
+															</span> 
+														</td>
+														<td>
+															<a href="https://motshoprani.org/">  {{$item->name}} </a>
+															<div class="group-link">
+																<a class="#" href="{{route('admin.user.edit',$item->id)}}"> Edit</a>  <span class="separetor"> | </span>
+                                                                @if ($item->user_role_id != 1)
+                                                                <a class="deleteClass" data-href="{{route('admin.user.delete',$item->id)}}" href="#"> Trash</a> <span class="separetor"> | </span>
+                                                                @endif
+																<a class="#" href="{{route('admin.user.show',$item->id)}}"> View</a>
+															</div>
+														</td>
+														<td> <a href="alam4162@gmail.com">   {{$item->email}} </a> </td>
+														<td> <a href="alam4162@gmail.com">   {{$item->phone ?? NULL}} </a> </td>
+														<td>
+															{{$item->userRoles ? $item->userRoles->name : NULL}}
+														</td>
+														<td>
+															<a href="">{{$item->postUser ? $item->postUser->count(): 0 }}</a>
+														</td>
+													</tr>
+												@endforeach
 											</tbody>
 											<tfoot>
 												<tr>
-													<th style="width: 1%;"><input type="checkbox" onclick="toggle(this)"></th>
+													<th style="width: 1%;"><input class="check_all_class " type="checkbox" value="all" name="check_all" style=""></th>
 													<th scope="col">Image</th>
-													<th scope="col">Username</th>
 													<th scope="col">Name</th>
 													<th scope="col">Email</th>
+													<th scope="col">Phone</th>
 													<th scope="col">Role</th>
 													<th scope="col">Posts</th>
 												</tr>
@@ -120,186 +151,6 @@
 									</div>
 								</div>
 							
-								<div class="tab-pane fade" id="administrator" role="tabpanel" aria-labelledby="administrator-tab">
-									<div class="table-responsive-sm" style="padding-top: 20px;">
-										<table id="post-published" class="table table-striped table-bordered" style="width: 100%;">
-											<thead>
-												<tr>
-													<th style="width: 1%;"><input type="checkbox" onclick="toggle(this)"></th>
-													<th scope="col">Image</th>
-													<th scope="col">Username</th>
-													<th scope="col">Name</th>
-													<th scope="col">Email</th>
-													<th scope="col">Role</th>
-													<th scope="col">Posts</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td><input type="checkbox" name="foo" value=""></td>
-													<td>
-														<span class="media-image">
-															<img width="60" height="50" src="https://motshoprani.org/wp-content/uploads/2022/03/received_297835542392423.jpeg" class="attachment-60x60 size-60x60" alt="" loading="lazy">
-														</span> 
-													</td>
-													<td>
-														<a href="#"> <span class="username"> admin </span> </a>
-														<div class="group-link">
-															<a class="#" href="#"> Edit</a>  <span class="separetor"> | </span>
-															<a class="#" href="#"> Trash</a> <span class="separetor"> | </span>
-															<a class="#" href="#"> View</a>
-														</div>
-													</td>
-													<td>
-														<a href="https://motshoprani.org/">  Md. Samsul Alam  </a>
-														<div class="group-link">
-															<a class="#" href="#"> Edit</a>  <span class="separetor"> | </span>
-															<a class="#" href="#"> Trash</a> <span class="separetor"> | </span>
-															<a class="#" href="#"> View</a>
-														</div>
-													</td>
-													<td> <a href="alam4162@gmail.com">  alam4162@gmail.com </a> </td>
-													<td>Administrator </td>
-													<td>
-														<a href="">5</a>
-													</td>
-												</tr>
-											</tbody>
-											<tfoot>
-												<tr>
-													<th style="width: 1%;"><input type="checkbox" onclick="toggle(this)"></th>
-													<th scope="col">Image</th>
-													<th scope="col">Username</th>
-													<th scope="col">Name</th>
-													<th scope="col">Email</th>
-													<th scope="col">Role</th>
-													<th scope="col">Posts</th>
-												</tr>
-											</tfoot>
-										</table>
-									</div>
-
-								</div>
-								<div class="tab-pane fade" id="editor" role="tabpanel" aria-labelledby="editor-tab">
-									<div class="table-responsive-sm" style="padding-top: 20px;">
-										<table id="post-draft" class="table table-striped table-bordered" style="width: 100%;">
-											<thead>
-												<tr>
-													<th style="width: 1%;"><input type="checkbox" onclick="toggle(this)"></th>
-													<th scope="col">Image</th>
-													<th scope="col">Username</th>
-													<th scope="col">Name</th>
-													<th scope="col">Email</th>
-													<th scope="col">Role</th>
-													<th scope="col">Posts</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td><input type="checkbox" name="foo" value=""></td>
-													<td>
-														<span class="media-image">
-															<img width="60" height="50" src="https://motshoprani.org/wp-content/uploads/2022/03/received_297835542392423.jpeg" class="attachment-60x60 size-60x60" alt="" loading="lazy">
-														</span> 
-													</td>
-													<td>
-														<a href="#"> <span class="username"> admin </span> </a>
-														<div class="group-link">
-															<a class="#" href="#"> Edit</a>  <span class="separetor"> | </span>
-															<a class="#" href="#"> Trash</a> <span class="separetor"> | </span>
-															<a class="#" href="#"> View</a>
-														</div>
-													</td>
-													<td>
-														<a href="https://motshoprani.org/">  Md. Samsul Alam  </a>
-														<div class="group-link">
-															<a class="#" href="#"> Edit</a>  <span class="separetor"> | </span>
-															<a class="#" href="#"> Trash</a> <span class="separetor"> | </span>
-															<a class="#" href="#"> View</a>
-														</div>
-													</td>
-													<td> <a href="alam4162@gmail.com">  alam4162@gmail.com </a> </td>
-													<td>Administrator </td>
-													<td>
-														<a href="">5</a>
-													</td>
-												</tr>
-											</tbody>
-											<tfoot>
-												<tr>
-													<th style="width: 1%;"><input type="checkbox" onclick="toggle(this)"></th>
-													<th scope="col">Image</th>
-													<th scope="col">Username</th>
-													<th scope="col">Name</th>
-													<th scope="col">Email</th>
-													<th scope="col">Role</th>
-													<th scope="col">Posts</th>
-												</tr>
-											</tfoot>
-										</table>
-									</div>
-
-								</div>
-								<div class="tab-pane fade" id="author" role="tabpanel" aria-labelledby="author-tab">
-									<div class="table-responsive-sm" style="padding-top: 20px;">
-										<table id="post-pending" class="table table-striped table-bordered" style="width: 100%;">
-											<thead>
-												<tr>
-													<th style="width: 1%;"><input type="checkbox" onclick="toggle(this)"></th>
-													<th scope="col">Image</th>
-													<th scope="col">Username</th>
-													<th scope="col">Name</th>
-													<th scope="col">Email</th>
-													<th scope="col">Role</th>
-													<th scope="col">Posts</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td><input type="checkbox" name="foo" value=""></td>
-													<td>
-														<span class="media-image">
-															<img width="60" height="50" src="https://motshoprani.org/wp-content/uploads/2022/03/received_297835542392423.jpeg" class="attachment-60x60 size-60x60" alt="" loading="lazy">
-														</span> 
-													</td>
-													<td>
-														<a href="#"> <span class="username"> admin </span> </a>
-														<div class="group-link">
-															<a class="#" href="#"> Edit</a>  <span class="separetor"> | </span>
-															<a class="#" href="#"> Trash</a> <span class="separetor"> | </span>
-															<a class="#" href="#"> View</a>
-														</div>
-													</td>
-													<td>
-														<a href="https://motshoprani.org/">  Md. Samsul Alam  </a>
-														<div class="group-link">
-															<a class="#" href="#"> Edit</a>  <span class="separetor"> | </span>
-															<a class="#" href="#"> Trash</a> <span class="separetor"> | </span>
-															<a class="#" href="#"> View</a>
-														</div>
-													</td>
-													<td> <a href="alam4162@gmail.com">  alam4162@gmail.com </a> </td>
-													<td>Administrator </td>
-													<td>
-														<a href="">5</a>
-													</td>
-												</tr>
-											</tbody>
-											<tfoot>
-												<tr>
-													<th style="width: 1%;"><input type="checkbox" onclick="toggle(this)"></th>
-													<th scope="col">Image</th>
-													<th scope="col">Username</th>
-													<th scope="col">Name</th>
-													<th scope="col">Email</th>
-													<th scope="col">Role</th>
-													<th scope="col">Posts</th>
-												</tr>
-											</tfoot>
-										</table>
-									</div>
-
-								</div>
 							</div>
 
 						</div>
@@ -314,4 +165,154 @@
     		<!--end page content wrapper-->
 
 
+
+			<div class="modal modalDeleteShow" id="modalDeleteShow"> </div>
+			
 @endsection
+
+
+
+@push('js')
+    <script>
+         $(document).on('click','.deleteClass',function(e){
+            e.preventDefault();
+            url = $(this).data('href');
+            $.ajax({
+                url:url,
+                success:function(response){
+                    if(response.status == true)
+                    {
+                        $('.modalDeleteShow').html(response.html).modal('show');
+                    }
+                },
+            });
+        });
+
+         
+
+          // checked all order list 
+          $(document).on('click','.check_all_class',function()
+            { 
+                displayNone();
+                if (this.checked == false)
+                {   
+                    $('.check_single_class').prop('checked', false).change();
+                    $(".check_single_class").each(function ()
+                    {
+                        var id = $(this).attr('id');
+                        $(this).val('').change();
+                    });
+                }
+                else
+                {
+                    $('.check_single_class').prop("checked", true).change();
+                    $(".check_single_class").each(function ()
+                    {
+                        var id = $(this).attr('id');
+                        $(this).val(id).change();
+                    });
+                }
+            });
+        // checked all order list 
+
+        
+        //check single order list
+            $(document).on('click','.check_single_class',function()
+            {
+                displayNone();
+                var $b = $('input[type=checkbox]');
+                if($b.filter(':checked').length <= 0)
+                {
+                    $('.check_all_class').prop('checked', false).change();
+                }
+
+                var id = $(this).attr('id');
+                if (this.checked == false)
+                {
+                    $(this).prop('checked', false).change();
+                    $(this).val('').change();
+                }else{
+                    $(this).prop("checked", true).change();
+                    $(this).val(id).change();
+                }
+                
+                var ids = [];
+                $('input.check_single_class[type=checkbox]').each(function () {
+                    if(this.checked){
+                        var v = $(this).val();
+                        ids.push(v);
+                    }
+                });
+                if(ids.length <= 0)
+                {
+                    $('.check_all_class').prop('checked', false).change();
+                }
+            });
+        //check single order list
+            
+        //bulk deleting (route for all checked product deleting)
+       /*  $(document).on('click', '.deletedAll', function (){
+            $('.alert-success').hide();
+            $('#delete_modal').modal('show');
+        }); */
+        
+
+            $(document).on('click', '.deletedAllButton', function (){
+                displayNone();
+               var option =  $('.bulkActionButton option:selected').val();
+               if(option == 0)
+               {
+                   alert('Select Bulk Action : delete');
+                   return 0;
+               }
+                var ids = [];
+                $('input.check_single_class[type=checkbox]').each(function () {
+                    if(this.checked){
+                        var v = $(this).val();
+                        ids.push(v);
+                    }
+                });
+                var url =  "{{ route('admin.user.bulk.deleting') }}";
+
+                if(ids.length <= 0) return ;
+                let decirectUrl = "{{route('admin.user.index')}}";
+                $.ajax({
+                    url: url,
+                    data: {ids: ids},
+                    type: "POST",
+                    beforeSend:function(){
+                        //$('#delete_modal').modal('hide');
+                        //$('.loading').fadeIn();
+                        //$('.loadingText').show();
+                    },
+                    success: function(response){
+                        if(response.status == true)
+                        {
+                            $('.successMessage').show();
+                            $('.alert-success-custom').show();
+                            $('.message').text(response.mess);
+                            setTimeout(function () {
+                                $(location).attr('href', decirectUrl);
+                            }, 2000);
+                        }
+                    },
+                    complete:function(){
+                        //$('.loading').fadeOut(); 
+                        //$('.loadingText').hide();
+                    },
+                });
+            });
+        //bulk product deleting end
+            function displayNone()
+            {
+                $('.alert-success').css({
+                    "display" : 'none'
+                });
+                $('.alert-success-custom').css({
+                    "display" : 'none'
+                });
+                $('.successMessage').hide();
+                $('.message').text('');
+            }
+    </script>
+@endpush

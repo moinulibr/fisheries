@@ -97,8 +97,10 @@ class User extends Authenticatable
         return $this->hasMany(UserRole::class,'created_by','id');
     }
 
+
     public function userRoles()
     {
         return $this->belongsTo(UserRole::class,'user_role_id','id');
     }
+
 }

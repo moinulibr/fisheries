@@ -222,16 +222,15 @@ Route::group(['as'=>'admin.media.','prefix' =>'admin/media','middleware' => ['au
 });
 
 Route::group(['as'=>'admin.user.','prefix' =>'admin/user','middleware' => ['auth']], function() {  
-    Route::get('/',[UserController::class,'index'])->name('index');
-    Route::get('/create',[UserController::class,'create'])->name('create');
+    Route::get('/{utp?}',[UserController::class,'index'])->name('index');
+    Route::get('/create/new',[UserController::class,'create'])->name('create');
     Route::post('/store',[UserController::class,'store'])->name('store');
+    Route::get('/show/{user}',[UserController::class,'show'])->name('show');
     Route::get('/edit/{user}',[UserController::class,'edit'])->name('edit');
     Route::post('/edit/{user}',[UserController::class,'update'])->name('update');
     Route::get('/delete/{user}',[UserController::class,'delete'])->name('delete');
     Route::post('/deleting/{user}',[UserController::class,'destroy'])->name('deleting');
     Route::post('/bulk/deleting',[UserController::class,'bulkDestroy'])->name('bulk.deleting');
-    Route::get('/status/change/{user}',[UserController::class,'status'])->name('status');
-    Route::post('/status/changing/{user}',[UserController::class,'statusChanging'])->name('status.changing');
 });
 
 Route::group(['as'=>'admin.user.role.','prefix' =>'admin/user/role','middleware' => ['auth']], function() {  
@@ -241,9 +240,6 @@ Route::group(['as'=>'admin.user.role.','prefix' =>'admin/user/role','middleware'
     Route::post('/edit/{user}',[UserRoleController::class,'update'])->name('update');
     Route::get('/delete/{user}',[UserRoleController::class,'delete'])->name('delete');
     Route::post('/deleting/{user}',[UserRoleController::class,'destroy'])->name('deleting');
-    Route::post('/bulk/deleting',[UserRoleController::class,'bulkDestroy'])->name('bulk.deleting');
-    Route::get('/status/change/{user}',[UserRoleController::class,'status'])->name('status');
-    Route::post('/status/changing/{user}',[UserRoleController::class,'statusChanging'])->name('status.changing');
 });
 
 Route::group(['as'=>'admin.user.profile.','prefix' =>'admin/user/profile','middleware' => ['auth']], function() {  
@@ -253,9 +249,6 @@ Route::group(['as'=>'admin.user.profile.','prefix' =>'admin/user/profile','middl
     Route::post('/edit/{user}',[UserProfileController::class,'update'])->name('update');
     Route::get('/delete/{user}',[UserProfileController::class,'delete'])->name('delete');
     Route::post('/deleting/{user}',[UserProfileController::class,'destroy'])->name('deleting');
-    Route::post('/bulk/deleting',[UserProfileController::class,'bulkDestroy'])->name('bulk.deleting');
-    Route::get('/status/change/{user}',[UserProfileController::class,'status'])->name('status');
-    Route::post('/status/changing/{user}',[UserProfileController::class,'statusChanging'])->name('status.changing');
 });
 
 
@@ -264,11 +257,5 @@ Route::group(['as'=>'admin.setting.','prefix' =>'admin/setting','middleware' => 
     Route::post('/store',[SettingController::class,'store'])->name('store');
     Route::get('/edit/{setting}',[SettingController::class,'edit'])->name('edit');
     Route::post('/edit/{setting}',[SettingController::class,'update'])->name('update');
-    Route::post('/scroll/update/{setting}',[SettingController::class,'scrollUpdate'])->name('scroll.update');
-    Route::get('/delete/{setting}',[SettingController::class,'delete'])->name('delete');
-    Route::post('/deleting/{setting}',[SettingController::class,'destroy'])->name('deleting');
-    Route::post('/bulk/deleting',[SettingController::class,'bulkDestroy'])->name('bulk.deleting');
-    Route::get('/status/change/{setting}',[SettingController::class,'status'])->name('status');
-    Route::post('/status/changing/{setting}',[SettingController::class,'statusChanging'])->name('status.changing');
 });
 

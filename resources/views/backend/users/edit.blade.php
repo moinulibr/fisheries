@@ -8,9 +8,7 @@
 				    
 					<!--start breadcrumb-->
 					<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-						<div class="breadcrumb-title pe-3">Add New User
-							<a href="{{route('admin.user.index')}}" class="btn btn-sm btn-outline-secondary">User list</a>
-						</div>
+						<div class="breadcrumb-title pe-3">Edit User</div>
 						<!--div class="ps-3">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb mb-0 p-0 align-items-center">
@@ -37,7 +35,6 @@
 							</div> --}}
 						</div>
 					</div>
-					<p>Create a brand new user and add them to this site.</p> 
 					<!--end breadcrumb-->
 
 					<hr>
@@ -46,7 +43,7 @@
 
 					<div class="card">
 						<div class="card-body">
-							<form action="{{route('admin.user.store')}}" method="POST" enctype="multipart/form-data">
+							<form action="{{route('admin.user.update',$user->id)}}" method="POST" enctype="multipart/form-data">
 								@csrf
 								<div class="table-responsive-sm" style="padding-top: 20px;">
 									<table class="form-table" role="presentation" style="width: 100%;">
@@ -55,27 +52,27 @@
 												<th scope="row">
 													<label for="email">Email <span class="description">(required)</span></label>
 												</th>
-												<td><input name="email" required type="email" class="form-control" value="{{old('email')}}" /></td>
+												<td><input type="email" class="form-control" disabled value="{{ $user->email }}" /></td>
 											</tr>
 											<tr class="form-field">
 												<th scope="row">
 													<label for="name">Name <span class="description">(required)</span></label>
 												</th>
-												<td><input name="name" required type="text" class="form-control" value="{{old('name')}}" /></td>
+												<td><input name="name" required type="text" class="form-control" value="{{old('name') ?? $user->name }}" /></td>
 											</tr>
 											<tr class="form-field">
 												<th scope="row">
 													<label for="mobile">Phone <span class="description">(required)</span></label>
 												</th>
-												<td><input name="phone" required type="phone" class="form-control" value="{{old('phone')}}" /></td>
+												<td><input name="phone" required type="phone" class="form-control" value="{{old('phone') ?? $user->phone}}" /></td>
 											</tr>
 											<tr class="form-field">
 												<th scope="row"><label for="password">Password (required)</label></th>
-												<td><input name="password" required type="password" class="form-control" value="" /></td>
+												<td><input name="password"  type="password" class="form-control" value="" /></td>
 											</tr>
 											<tr class="form-field">
 												<th scope="row"><label for="password">Re-type Password (required)</label></th>
-												<td><input name="password_confirmation" required type="password" id="password" class="form-control" value="" /></td>
+												<td><input name="password_confirmation"  type="password" id="password" class="form-control" value="" /></td>
 											</tr>
 											{{-- <tr class="form-field form-required user-pass2-wrap hide-if-js" style="display: none;">
 												<th scope="row">
@@ -98,7 +95,7 @@
 											<tr>
 												<th scope="row">Send User Notification</th>
 												<td>
-													<input type="checkbox" value="1" name="send_user_notification" value="" checked="checked" />
+													<input type="checkbox" value="1" name="send_user_notification" value="" @if ($user->send_user_notification == 1) checked="checked" @endif  />
 													<label for="send_user_notification">Send the new user an email about their account.</label>
 												</td>
 											</tr>
@@ -107,25 +104,36 @@
 												<td>
 													<select name="user_role_id" id="role" required class="btn btn-sm btn-outline-secondary">
 														@foreach ($userRoles as $item)	
-															<option {{old('user_role_id') == $item->id ?'selected' : ''}} value="{{$item->id}}">{{$item->name}}</option>
+															<option {{ $user->user_role_id == $item->id ?'selected' : ''}} value="{{$item->id}}">{{$item->name}}</option>
 														@endforeach
 													</select>
 												</td>
 											</tr>
+											@if ($user->photo)	
+											<tr>
+												<th scope="row"></th>
+												<th>
+													<div class="fileinput fileinput-new" data-provides="fileinput" style=" width: 200px;">
+														<img src="{{ asset('storage/user/'.$user->photo) }}" alt="" style="height:120px;  margin-top: 10px;">
+													</div>
+												</th>
+											</tr>
+											@endif
 											<tr>
 												<th scope="row"></th>
 												<th>
 													<div class="fileinput fileinput-new" data-provides="fileinput" style=" width: 200px;">
 														<img id="blah"  />
-														<input type='file' name="photo"  onchange="readURL(this);" style="margin-top: 10px;" />
+														<input type='file' name="photo"  onchange="readURL(this);" />
 													</div>
 													<p>Maximum upload file size: 500 MB.</p>
 												</th>
 											</tr>
+											
 											<tr>
 												<th scope="row"></th>
 												<td>
-													<input type="submit" value="Save" class="btn btn-primary" />
+													<input type="submit" value="Update" class="btn btn-primary" />
 												</td>
 											</tr>
 										</tbody>
