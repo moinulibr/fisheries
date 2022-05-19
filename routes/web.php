@@ -195,7 +195,7 @@ Route::group(['as'=>'admin.post.','prefix' =>'admin/post','middleware' => ['auth
 
 
 Route::group(['as'=>'admin.page.','prefix' =>'admin/page','middleware' => ['auth']], function() {  
-    Route::get('/',[PageController::class,'index'])->name('index');
+    Route::get('//{ptp?}',[PageController::class,'index'])->name('index');
     Route::get('/create',[PageController::class,'create'])->name('create');
     Route::post('/store',[PageController::class,'store'])->name('store');
     Route::get('/edit/{page}',[PageController::class,'edit'])->name('edit');

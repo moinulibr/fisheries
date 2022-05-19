@@ -162,7 +162,7 @@ class UserController extends Controller
             $this->imageHeight  = 400;  //its nullable
             $this->requestFile  = $request->photo;  //its mandatory
             $this->dbImageField = $user->photo; 
-            $user->photo = $this->updateImage();;       //its mandatory
+            $user->photo = $this->updateImage();       //its mandatory
             $user->save();
         }
         return redirect()->route('admin.user.index')->with('success','User updated successfully');
