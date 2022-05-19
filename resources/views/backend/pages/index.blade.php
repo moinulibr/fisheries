@@ -111,7 +111,7 @@
 															@endif
 														<div class="group-link">
 															<a class="#" href="{{route('admin.page.edit',$item->id)}}"> Edit</a> <span class="separetor"> | </span> 
-															<a class="#" href="#"> Trash</a> <span class="separetor"> | </span>
+															<a class="deleteClass" data-href="{{route('admin.page.delete',$item->id)}}" href="#"> Trash</a> <span class="separetor"> | </span>
 															<a class="#" href="#"> View</a>
 														</div>
 													</td>
@@ -270,4 +270,152 @@
 			<!--end page content wrapper-->
 
 
+			<div class="modal modalDeleteShow" id="modalDeleteShow"> </div>
 @endsection
+
+
+
+@push('js')
+    <script>
+         $(document).on('click','.deleteClass',function(e){
+            e.preventDefault();
+            url = $(this).data('href');
+            $.ajax({
+                url:url,
+                success:function(response){
+                    if(response.status == true)
+                    {
+                        $('.modalDeleteShow').html(response.html).modal('show');
+                    }
+                },
+            });
+        });
+
+         
+
+          // checked all order list 
+          $(document).on('click','.check_all_class',function()
+            { 
+                displayNone();
+                if (this.checked == false)
+                {   
+                    $('.check_single_class').prop('checked', false).change();
+                    $(".check_single_class").each(function ()
+                    {
+                        var id = $(this).attr('id');
+                        $(this).val('').change();
+                    });
+                }
+                else
+                {
+                    $('.check_single_class').prop("checked", true).change();
+                    $(".check_single_class").each(function ()
+                    {
+                        var id = $(this).attr('id');
+                        $(this).val(id).change();
+                    });
+                }
+            });
+        // checked all order list 
+
+        
+        //check single order list
+            $(document).on('click','.check_single_class',function()
+            {
+                displayNone();
+                var $b = $('input[type=checkbox]');
+                if($b.filter(':checked').length <= 0)
+                {
+                    $('.check_all_class').prop('checked', false).change();
+                }
+
+                var id = $(this).attr('id');
+                if (this.checked == false)
+                {
+                    $(this).prop('checked', false).change();
+                    $(this).val('').change();
+                }else{
+                    $(this).prop("checked", true).change();
+                    $(this).val(id).change();
+                }
+                
+                var ids = [];
+                $('input.check_single_class[type=checkbox]').each(function () {
+                    if(this.checked){
+                        var v = $(this).val();
+                        ids.push(v);
+                    }
+                });
+                if(ids.length <= 0)
+                {
+                    $('.check_all_class').prop('checked', false).change();
+                }
+            });
+        //check single order list
+            
+        //bulk deleting (route for all checked product deleting)
+       /*  $(document).on('click', '.deletedAll', function (){
+            $('.alert-success').hide();
+            $('#delete_modal').modal('show');
+        }); */
+        
+
+            $(document).on('click', '.deletedAllButton', function (){
+                displayNone();
+               var option =  $('.bulkActionButton option:selected').val();
+               if(option == 0)
+               {
+                   alert('Select Bulk Action : delete');
+                   return 0;
+               }
+                var ids = [];
+                $('input.check_single_class[type=checkbox]').each(function () {
+                    if(this.checked){
+                        var v = $(this).val();
+                        ids.push(v);
+                    }
+                });
+                var url =  "{{ route('admin.user.bulk.deleting') }}";
+				return ;
+                if(ids.length <= 0) return ;
+                let decirectUrl = "{{route('admin.user.index')}}";
+                $.ajax({
+                    url: url,
+                    data: {ids: ids},
+                    type: "POST",
+                    beforeSend:function(){
+                        //$('#delete_modal').modal('hide');
+                        //$('.loading').fadeIn();
+                        //$('.loadingText').show();
+                    },
+                    success: function(response){
+                        if(response.status == true)
+                        {
+                            $('.successMessage').show();
+                            $('.alert-success-custom').show();
+                            $('.message').text(response.mess);
+                            setTimeout(function () {
+                                $(location).attr('href', decirectUrl);
+                            }, 2000);
+                        }
+                    },
+                    complete:function(){
+                        //$('.loading').fadeOut(); 
+                        //$('.loadingText').hide();
+                    },
+                });
+            });
+        //bulk product deleting end
+            function displayNone()
+            {
+                $('.alert-success').css({
+                    "display" : 'none'
+                });
+                $('.alert-success-custom').css({
+                    "display" : 'none'
+                });
+                $('.successMessage').hide();
+                $('.message').text('');
+            }
+    </script>
+@endpush

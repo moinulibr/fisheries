@@ -142,14 +142,29 @@ class PageController extends Controller
         return redirect()->route('admin.page.index')->with('success','Page updated successfully');
     }
 
+
+    
+    public function delete(Page $page)
+    {
+        $data['page'] = $page;
+        $view =  view('backend.pages.delete',$data)->render();
+        return response()->json([
+            'status' => true,
+            'html' => $view
+        ]);
+    }
+    
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Backend\Page  $page
+     * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
     public function destroy(Page $page)
     {
-        //
+        $page->deleted_at   = date('Y/m/d h:i:s');
+        $page->status       = 4;
+        $page->save();
+        return redirect()->route('admin.page.index')->with('success','Page Deleted Successfully');
     }
 }
