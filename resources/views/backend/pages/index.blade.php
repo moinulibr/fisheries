@@ -8,7 +8,8 @@
 				<div class="page-content">
 					<!--start breadcrumb-->
 					<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-						<div class="breadcrumb-title pe-3">Pages</div> <a href="{{route('admin.page.create')}}" class="btn btn-sm btn-outline-secondary">Add New</a>
+						<div class="breadcrumb-title pe-3">Pages</div> 
+						<a href="{{route('admin.page.create')}}" class="btn btn-sm btn-outline-secondary">Add New</a>
 						
 						<div class="ms-auto">
 							{{-- <div class="btn-group">
@@ -27,6 +28,15 @@
 					<!--end breadcrumb-->
 
 					<hr />
+
+					@include('backend.dashboard.includes.message')
+                    <div class="successMessage" style="display: none;">
+                        <div class="alert alert-success alert-success-custom" role="alert">
+                            <i class="fa fa-check"></i>
+                            <span class="message"></span>
+                        </div>  
+                    </div>
+
 
 					<div class="card">
 						<div class="card-body">
@@ -48,25 +58,21 @@
 										<span>({{$pageCountables->where('status',2)->count()}})</span>
 									</a>
 								</li>
-								<li class="nav-item" role="presentation">
+								{{-- <li class="nav-item" role="presentation">
 									<a class="nav-link {{$ptyUrl == 'pending' ? 'active' : ''}}" href="{{route('admin.page.index','pending')}}">
 										Pending  
 										<span>({{$pageCountables->where('status',0)->count()}})</span>
 									</a>
-								</li>
+								</li> --}}
 							</ul>
 
-							{{-- <div class="filter-button mt-2">
-								<select name="m" id="filter-by-date" class="btn btn-sm btn-outline-secondary">
-									<option selected="selected" value="0">All dates</option>
-									<option value="202203">March 2022</option>
-									<option value="202104">April 2021</option>
-									<option value="201712">December 2017</option>
-									<option value="201711">November 2017</option>
-									<option value="201710">October 2017</option>
+							<div class="filter-button mt-2">
+								<select name="bulk_action" id="filter-by-date" class="bulkActionButton btn btn-sm btn-outline-secondary">
+									<option selected="selected" value="0">Bulk actions</option>
+									<option value="1">Delete</option>
 								</select>
-								<button type="button" class="btn btn-sm btn-outline-secondary">Filter</button>
-							</div> --}}
+								<button type="button" class="deletedAllButton btn btn-sm btn-outline-secondary">Apply</button>
+							</div>
 
 							<div class="tab-content" id="myTabContent">
 								<div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="home-tab">
@@ -74,7 +80,9 @@
 										<table id="post-all" class="table table-striped table-bordered" style="width: 100%;">
 											<thead>
 												<tr>
-													{{-- <th style="width: 1%;"><input type="checkbox" onclick="toggle(this)" /></th> --}}
+													<th style="width: 1%;">
+														<input class="check_all_class " type="checkbox" value="all" name="check_all" style="">	
+													</th>
 													<th scope="col">Title</th>
 													<th scope="col">Author</th>
 													<th scope="col">Status Date</th>
@@ -83,9 +91,9 @@
 											<tbody>
 												@foreach ($pages as $item)
 												<tr>
-													{{-- <td>
-														<input type="checkbox" name="foo" value="" />
-													</td> --}}
+													<td>
+														<input class="check_single_class" type="checkbox"  name="checked_id[]" value="{{ $item->id }}" id="{{$item->id}}" style="box-shadow:none;">
+													</td>
 													<td>
 														@php
 															$title = $item->title;
@@ -125,14 +133,16 @@
 															Pending
 														@endif
 														<br />
-														{{ \Carbon\Carbon::parse($item->from_date)->format('Y/m/d h:i:s A')}}
+														{{ \Carbon\Carbon::parse($item->updated_at)->format('Y/m/d h:i:s A')}}
 													</td>
 												</tr>
 												@endforeach
 											</tbody>
 											<tfoot>
 												<tr>
-													{{-- <th style="width: 1%;"><input type="checkbox" onclick="toggle(this)" /></th> --}}
+													<th style="width: 1%;">
+														<input class="check_all_class " type="checkbox" value="all" name="check_all" style="">	
+													</th>
 													<th scope="col">Title</th>
 													<th scope="col">Author</th>
 													<th scope="col">Status Date</th>
@@ -375,10 +385,10 @@
                         ids.push(v);
                     }
                 });
-                var url =  "{{ route('admin.user.bulk.deleting') }}";
-				return ;
+                var url =  "{{ route('admin.page.bulk.deleting') }}";
+
                 if(ids.length <= 0) return ;
-                let decirectUrl = "{{route('admin.user.index')}}";
+                let decirectUrl = "{{route('admin.page.index')}}";
                 $.ajax({
                     url: url,
                     data: {ids: ids},

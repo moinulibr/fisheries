@@ -17,11 +17,13 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->text('title')->nullable();
             $table->text('slug')->nullable();
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->text('featured_image')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->text('categories')->nullable();
             $table->integer('created_by')->nullable();
+            $table->integer('published_by')->nullable();
+            $table->string('published_at',30)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -32,6 +32,10 @@
         <link href="{{asset('mastering-assets')}}/css/semi-dark.css" rel="stylesheet" />
 
         <title>FLID - মৎস্য ও প্রাণিসম্পদ তথ্য ভাণ্ডার </title>
+
+        <!-- include summernote css/js-->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
+    
     </head>
 
     <body>
@@ -66,6 +70,17 @@
         <script src="{{asset('mastering-assets')}}/plugins/datatable/js/jquery.dataTables.min.js"></script>
         <script src="{{asset('mastering-assets')}}/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
         <script src="{{asset('mastering-assets')}}/js/table-datatable.js"></script>
+
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+             $('.summernote').summernote({
+                   height: 300,
+              });
+           });
+        </script>
+
+
         <script>
             $(document).ready(function() {
                 var table = $('#example').DataTable( {

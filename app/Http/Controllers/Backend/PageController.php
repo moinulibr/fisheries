@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Backend\Page;
 use Illuminate\Http\Request;
 use App\Traits\Backend\FileUpload\FileUploadTrait;
+use Illuminate\Support\Facades\Auth;
+
 class PageController extends Controller
 {
     use FileUploadTrait;
@@ -25,11 +27,12 @@ class PageController extends Controller
             $status = 2;
         } 
         else if(strtolower($pty) == 'pending'){
-            $status = 0;
+            $status = "all";
+            $pty = NULL;
         }
         
         $query = Page::query();
-        if($status != "all" && $status >= 0  )
+        if($status != "all" && ( $status <= 2 ))
         {
             $query->where('status',$status);
         }
@@ -125,6 +128,8 @@ class PageController extends Controller
         else if($request->page_status == 'Publish')
         {
             $status = 1;
+            $page->published_by  = Auth::guard('web')->user()->id;
+            $page->published_at  = date('d-m-Y h:i:s A');
         }
         $page->description  = $request->description;
         $page->status  = $status;
@@ -144,6 +149,25 @@ class PageController extends Controller
 
 
     
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Backend\Page  $page
+     * @return \Illuminate\Http\Response
+     */
+    public function bulkDestroy(Request $request)
+    {
+        Page::whereIn('id',$request->ids)->update([
+            'deleted_at' => date('Y/m/d h:i:s'),
+            'status'    => 4
+        ]);
+        return response()->json([
+            'status' => true,
+            'mess' => "Page Deleted Successfully"
+        ]);
+    }
+
     public function delete(Page $page)
     {
         $data['page'] = $page;

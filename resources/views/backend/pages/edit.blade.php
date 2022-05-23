@@ -84,7 +84,7 @@
                                             </div>
                                             <div class="postbox-body">
                                                 <!-- Button trigger modal -->
-                                            {{--  <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#imageModal">
+                                                {{--  <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#imageModal">
                                                 Set featured image
                                                 </button> --}}
                                                 @if ($page->featured_image)

@@ -118,7 +118,7 @@ Route::group(['middleware' => ['auth','verified']], function() {
 });
 
 Route::group(['as'=>'admin.scrolling.news.ticker.','prefix' =>'admin/scrolling/news/ticker','middleware' => ['auth']], function() {  
-    Route::get('/',[ScrollingNewsTickerController::class,'index'])->name('index');
+    Route::get('/list',[ScrollingNewsTickerController::class,'index'])->name('index');
     Route::post('/store',[ScrollingNewsTickerController::class,'store'])->name('store');
     Route::get('/edit/{scrollingNewsTicker}',[ScrollingNewsTickerController::class,'edit'])->name('edit');
     Route::post('/edit/{scrollingNewsTicker}',[ScrollingNewsTickerController::class,'update'])->name('update');
@@ -130,7 +130,7 @@ Route::group(['as'=>'admin.scrolling.news.ticker.','prefix' =>'admin/scrolling/n
 });
 
 Route::group(['as'=>'admin.photo.message.','prefix' =>'admin/image/mess','middleware' => ['auth']], function() {  
-    Route::get('/',[PhotoMessageController::class,'index'])->name('index');
+    Route::get('/list',[PhotoMessageController::class,'index'])->name('index');
     Route::post('/store',[PhotoMessageController::class,'store'])->name('store');
     Route::get('/edit/{photoMessage}',[PhotoMessageController::class,'edit'])->name('edit');
     Route::post('/edit/{photoMessage}',[PhotoMessageController::class,'update'])->name('update');
@@ -142,7 +142,7 @@ Route::group(['as'=>'admin.photo.message.','prefix' =>'admin/image/mess','middle
 });
 
 Route::group(['as'=>'admin.important.link.','prefix' =>'admin/important/link','middleware' => ['auth']], function() {  
-    Route::get('/',[ImportantLinkController::class,'index'])->name('index');
+    Route::get('/list',[ImportantLinkController::class,'index'])->name('index');
     Route::post('/store',[ImportantLinkController::class,'store'])->name('store');
     Route::get('/edit/{importantLink}',[ImportantLinkController::class,'edit'])->name('edit');
     Route::post('/edit/{importantLink}',[ImportantLinkController::class,'update'])->name('update');
@@ -155,7 +155,7 @@ Route::group(['as'=>'admin.important.link.','prefix' =>'admin/important/link','m
 
 
 Route::group(['as'=>'admin.necessary.other.service.','prefix' =>'admin/other/service','middleware' => ['auth']], function() {  
-    Route::get('/',[NecessaryOtherServiceController::class,'index'])->name('index');
+    Route::get('/list',[NecessaryOtherServiceController::class,'index'])->name('index');
     Route::post('/store',[NecessaryOtherServiceController::class,'store'])->name('store');
     Route::get('/edit/{necessaryOtherService}',[NecessaryOtherServiceController::class,'edit'])->name('edit');
     Route::post('/edit/{necessaryOtherService}',[NecessaryOtherServiceController::class,'update'])->name('update');
@@ -168,7 +168,8 @@ Route::group(['as'=>'admin.necessary.other.service.','prefix' =>'admin/other/ser
 
 
 Route::group(['as'=>'admin.category.','prefix' =>'admin/category','middleware' => ['auth']], function() {  
-    Route::get('/',[CategoryController::class,'index'])->name('index');
+    Route::get('/list',[CategoryController::class,'index'])->name('index');
+    Route::get('/make/slug', [CategoryController::class,'slug'])->name('make.slug'); // slug
     Route::post('/store',[CategoryController::class,'store'])->name('store');
     Route::get('/edit/{category}',[CategoryController::class,'edit'])->name('edit');
     Route::post('/edit/{category}',[CategoryController::class,'update'])->name('update');
@@ -181,7 +182,7 @@ Route::group(['as'=>'admin.category.','prefix' =>'admin/category','middleware' =
 
 
 Route::group(['as'=>'admin.post.','prefix' =>'admin/post','middleware' => ['auth']], function() {  
-    Route::get('/',[PostController::class,'index'])->name('index');
+    Route::get('/list/{ptp?}',[PostController::class,'index'])->name('index');
     Route::get('/create',[PostController::class,'create'])->name('create');
     Route::post('/store',[PostController::class,'store'])->name('store');
     Route::get('/edit/{post}',[PostController::class,'edit'])->name('edit');
@@ -195,8 +196,8 @@ Route::group(['as'=>'admin.post.','prefix' =>'admin/post','middleware' => ['auth
 
 
 Route::group(['as'=>'admin.page.','prefix' =>'admin/page','middleware' => ['auth']], function() {  
-    Route::get('//{ptp?}',[PageController::class,'index'])->name('index');
-    Route::get('/create',[PageController::class,'create'])->name('create');
+    Route::get('/list/{ptp?}',[PageController::class,'index'])->name('index');
+    Route::get('/create/new',[PageController::class,'create'])->name('create');
     Route::post('/store',[PageController::class,'store'])->name('store');
     Route::get('/edit/{page}',[PageController::class,'edit'])->name('edit');
     Route::post('/edit/{page}',[PageController::class,'update'])->name('update');
@@ -209,7 +210,7 @@ Route::group(['as'=>'admin.page.','prefix' =>'admin/page','middleware' => ['auth
 
 
 Route::group(['as'=>'admin.media.','prefix' =>'admin/media','middleware' => ['auth']], function() {  
-    Route::get('/',[MediaController::class,'index'])->name('index');
+    Route::get('/list',[MediaController::class,'index'])->name('index');
     Route::get('/create',[MediaController::class,'create'])->name('create');
     Route::post('/store',[MediaController::class,'store'])->name('store');
     Route::get('/edit/{media}',[MediaController::class,'edit'])->name('edit');
@@ -222,7 +223,7 @@ Route::group(['as'=>'admin.media.','prefix' =>'admin/media','middleware' => ['au
 });
 
 Route::group(['as'=>'admin.user.','prefix' =>'admin/user','middleware' => ['auth']], function() {  
-    Route::get('/{utp?}',[UserController::class,'index'])->name('index');
+    Route::get('/list/{utp?}',[UserController::class,'index'])->name('index');
     Route::get('/create/new',[UserController::class,'create'])->name('create');
     Route::post('/store',[UserController::class,'store'])->name('store');
     Route::get('/show/{user}',[UserController::class,'show'])->name('show');
@@ -234,7 +235,7 @@ Route::group(['as'=>'admin.user.','prefix' =>'admin/user','middleware' => ['auth
 });
 
 Route::group(['as'=>'admin.user.role.','prefix' =>'admin/user/role','middleware' => ['auth']], function() {  
-    Route::get('/',[UserRoleController::class,'index'])->name('index');
+    Route::get('/list',[UserRoleController::class,'index'])->name('index');
     Route::post('/store',[UserRoleController::class,'store'])->name('store');
     Route::get('/edit/{user}',[UserRoleController::class,'edit'])->name('edit');
     Route::post('/edit/{user}',[UserRoleController::class,'update'])->name('update');
@@ -243,7 +244,7 @@ Route::group(['as'=>'admin.user.role.','prefix' =>'admin/user/role','middleware'
 });
 
 Route::group(['as'=>'admin.user.profile.','prefix' =>'admin/user/profile','middleware' => ['auth']], function() {  
-    Route::get('/',[UserProfileController::class,'index'])->name('index');
+    Route::get('/list',[UserProfileController::class,'index'])->name('index');
     Route::post('/store',[UserProfileController::class,'store'])->name('store');
     Route::get('/edit/{user}',[UserProfileController::class,'edit'])->name('edit');
     Route::post('/edit/{user}',[UserProfileController::class,'update'])->name('update');
@@ -253,9 +254,10 @@ Route::group(['as'=>'admin.user.profile.','prefix' =>'admin/user/profile','middl
 
 
 Route::group(['as'=>'admin.setting.','prefix' =>'admin/setting','middleware' => ['auth']], function() {  
-    Route::get('/',[SettingController::class,'index'])->name('index');
+    Route::get('/list',[SettingController::class,'index'])->name('index');
     Route::post('/store',[SettingController::class,'store'])->name('store');
     Route::get('/edit/{setting}',[SettingController::class,'edit'])->name('edit');
     Route::post('/edit/{setting}',[SettingController::class,'update'])->name('update');
+    Route::post('/scroll/edit/{setting}',[SettingController::class,'scrollUpdate'])->name('scroll.update');
 });
 
