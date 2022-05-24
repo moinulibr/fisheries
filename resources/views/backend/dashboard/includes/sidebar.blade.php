@@ -58,6 +58,15 @@
         </li>
 
         <li>
+            <a href="#">
+                <div class="parent-icon">
+                    <i class="bi bi-link-45deg"></i>
+                </div>
+                <div class="menu-title">  মৎস্য ও প্রানিসম্পদ বিশেষ সেবা  </div>
+            </a>
+        </li>
+
+        <li>
             <a href="{{ route('admin.important.link.index') }}">
                 <div class="parent-icon">
                     <i class="bi bi-link-45deg"></i>

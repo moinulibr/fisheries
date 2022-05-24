@@ -22,6 +22,7 @@ use App\Http\Controllers\Backend\ImportantLinkController;
 use App\Http\Controllers\Backend\Auth\ForgotPasswordController;
 use App\Http\Controllers\Backend\ScrollingNewsTickerController;
 use App\Http\Controllers\Backend\NecessaryOtherServiceController;
+use App\Http\Controllers\Frontend\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +44,9 @@ Route::get('clear', function() {
     return 'DONE'; //Return anything
 });
 
-
+Route::group(['as'=>'frontend.','prefix' =>'m'], function() {  
+    Route::get('/index', [HomeController::class, 'index'])->name('home.index');
+});
 
 Route::get('/', [LoginController::class, 'show']);
 
